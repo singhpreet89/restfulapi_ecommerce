@@ -18,9 +18,9 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::apiResource('user', 'User\UserController')->only('index', 'show');
-Route::apiResource('buyer', 'Buyer\BuyerController')->only('index', 'show');
-Route::apiResource('seller', 'Seller\SellerController')->only('index', 'show');
-Route::apiResource('category', 'Category\CategoryController');
-Route::apiResource('product', 'Product\ProductController');
-Route::apiResource('transaction', 'Transaction\TransactionController');
+Route::apiResource('users', 'User\UserController')->only('index', 'show');
+Route::apiResource('buyers', 'Buyer\BuyerController')->only('index', 'show');
+Route::apiResource('sellers', 'Seller\SellerController')->only('index', 'show');
+Route::apiResource('categories', 'Category\CategoryController');
+Route::apiResource('products', 'Product\ProductController');
+Route::apiResource('transactions', 'Transaction\TransactionController');
