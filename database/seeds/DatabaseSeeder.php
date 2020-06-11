@@ -16,8 +16,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UserSeeder::class);
-
-        $users = 200;
+        echo "\nSeeding in progress.....\n\n";
+        $users = 1000;
         $numberOfCategories = 30;
         $numberOfProducts = 1000;
         $numberOfTransactions = 1000;
