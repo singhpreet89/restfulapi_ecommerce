@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    // TODO: VERIFIED_USER & UNVERIFIED_USER logic can be handled inside the ProductFactory
     const AVAILABLE_PRODUCT = 'available';
     const UNAVAILABLE_PRODUCT = 'unavailable';
 
@@ -16,6 +17,7 @@ class Product extends Model
         'name', 'description', 'quantity', 'status', 'image', 'seller_id',
     ];
 
+    // TODO: isAvailable logic can be handled inside the Factory
     public function isAvailable() {
         return $this->status == Product::AVAILABLE_PRODUCT;
         // Or

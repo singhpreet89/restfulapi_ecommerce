@@ -11,11 +11,12 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    // TODO: VERIFIED_USER & UNVERIFIED_USER could be integers and ADMIN_USER, REGULAT_USER could be boolean
     const VERIFIED_USER = '1';
     const UNVERIFIED_USER = '0';
 
     const ADMIN_USER = 'true';
-    const REGULAT_USER = 'false';
+    const REGULAR_USER = 'false';
 
     /**
      * The attributes that are mass assignable.
@@ -32,7 +33,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'verification_token',
     ];
 
     /**
@@ -41,9 +42,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime', 'verification_token', 
+        'email_verified_at' => 'datetime', 
     ];
 
+    // TODO: We can write the login in the following functions and the constants used in UserFactory directly inside the Factories
     public function isVerified() {
         return $this->verified == User::VERIFIED_USER;
     }
@@ -53,6 +55,6 @@ class User extends Authenticatable
     }
 
     public static function generateVerificationCode() {
-        return Str::random(40); // TODO: Check how to make this a Pseudo Random number or Cryptographically secure
+        return Str::random(40); // TODO: Check how to make this a Pseudo Random number or Cryptographically secure number
     }
 }

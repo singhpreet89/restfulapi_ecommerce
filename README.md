@@ -2,4 +2,4 @@
 
 ## Features
 1. Laravel Telescope
-2.
+2. Saved Images
