@@ -2,8 +2,9 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
@@ -50,6 +51,8 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        Log::info("---------------------------------------------------------");
+        Log::info($exception);
         return parent::render($request, $exception);
     }
 }

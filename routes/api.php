@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::apiResource('users', 'User\UserController')->only('index', 'show');
+Route::apiResource('users', 'User\UserController');
 Route::apiResource('buyers', 'Buyer\BuyerController')->only('index', 'show');
 Route::apiResource('sellers', 'Seller\SellerController')->only('index', 'show');
 Route::apiResource('categories', 'Category\CategoryController');
