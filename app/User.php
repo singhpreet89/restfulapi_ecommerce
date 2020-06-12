@@ -57,4 +57,18 @@ class User extends Authenticatable
     public static function generateVerificationCode() {
         return Str::random(40); // TODO: Check how to make this a Pseudo Random number or Cryptographically secure number
     }
+
+    // Mutators
+    public function serNameAttribute($name) {
+        $this->attributes['name'] = Str::lower($name);
+    }
+
+    public function setEmailAttribute($email) {
+        $this->attributes['email'] = Str::lower($email);
+    }
+
+    // Accessors
+    public function getNameAttribute($name) {
+        return ucwords($name);
+    }   
 }
