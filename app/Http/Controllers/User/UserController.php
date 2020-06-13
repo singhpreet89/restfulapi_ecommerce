@@ -28,7 +28,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\UserStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(UserStoreRequest $request)
@@ -46,23 +46,23 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        $user = User::findOrFail($id);  // FindOrFail() generates a 'ModelNotFound EXCEPTION' instead of 'ErrorException: Trying to get property 'id' of non-object in file' in case of find()
         return new UserResource($user);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\UserUpdateRequest  $request
+     * @param  User $user
      * @return \Illuminate\Http\Response
      */
     public function update(UserUpdateRequest $request, $id)
+    // public function update(UserUpdateRequest $request, User $user)
     {   
         $user = User::findOrFail($id);
 
@@ -105,11 +105,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        $user = User::findOrFail($id);
         $user->delete();
-
         return new UserResource($user);
     }
 }
