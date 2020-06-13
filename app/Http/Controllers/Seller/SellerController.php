@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Seller;
 use App\Seller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\User\UserResource;
+use App\Http\Resources\User\UserCollection;
 use App\Http\Resources\Seller\SellerResource;
 use App\Http\Resources\Seller\SellerCollection;
 
@@ -17,9 +19,9 @@ class SellerController extends Controller
      */
     public function index()
     {
-        // If the user has atleast one product then he is a Seller
+        // If the User has atleast one Product then he is a Seller
         $sellers = Seller::has('products')->paginate(20);
-        return SellerCollection::collection($sellers);
+        return UserCollection::collection($sellers);
     }
 
     /**
@@ -31,6 +33,6 @@ class SellerController extends Controller
     public function show($id)
     {
         $seller = Seller::has('products')->findOrFail($id);
-        return new SellerResource($seller);
+        return new UserResource($seller);
     }
 }

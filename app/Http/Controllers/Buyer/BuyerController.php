@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Buyer;
 use App\Buyer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\User\UserResource;
 use App\Http\Resources\Buyer\BuyerResource;
+use App\Http\Resources\User\UserCollection;
 use App\Http\Resources\Buyer\BuyerCollection;
 
 class BuyerController extends Controller
@@ -17,9 +19,9 @@ class BuyerController extends Controller
      */
     public function index()
     {
-        // If the user has atleast one transaction then he is a Buyer
+        // If the User has atleast one Transaction then he is a Buyer
         $buyers = Buyer::has('transactions')->paginate(20);
-        return BuyerCollection::collection($buyers);
+        return UserCollection::collection($buyers);
     }
 
     /**
@@ -31,6 +33,6 @@ class BuyerController extends Controller
     public function show($id)
     {
         $buyer = Buyer::has('transactions')->findOrFail($id);
-        return new BuyerResource($buyer);
+        return new UserResource($buyer);
     }
 }
