@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Transaction;
+use App\Scopes\BuyerScope;
 
 class Buyer extends User
 {
@@ -12,6 +13,16 @@ class Buyer extends User
      * Because the 'buyers' table does not exist 
      * */ 
     protected $table = 'users';
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope(new BuyerScope);
+    }
 
     public function transactions() {
         return $this->hasMany(Transaction::class);

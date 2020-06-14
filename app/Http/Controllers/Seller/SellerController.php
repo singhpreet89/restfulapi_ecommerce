@@ -7,32 +7,36 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\UserCollection;
-use App\Http\Resources\Seller\SellerResource;
-use App\Http\Resources\Seller\SellerCollection;
 
 class SellerController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param  Seller  $seller
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Seller $seller)
     {
         // If the User has atleast one Product then he is a Seller
-        $sellers = Seller::has('products')->paginate(20);
+        // $sellers = Seller::has('products')->paginate(20);
+        
+        // ? Seller::has('products') is being handled in the SellerScope
+        $sellers = $seller->paginate(20);
         return UserCollection::collection($sellers);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Seller  $seller
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Seller $seller)
     {
-        $seller = Seller::has('products')->findOrFail($id);
+        // $seller = Seller::has('products')->findOrFail($id);
+
+        // ? Seller::has('products') is being handled in the SellerScope
         return new UserResource($seller);
     }
 }

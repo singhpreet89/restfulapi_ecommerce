@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Product;
+use App\Scopes\SellerScope;
 
 class Seller extends User
 {
@@ -12,6 +13,16 @@ class Seller extends User
      * Because the 'sellers' table does not exist 
      * */ 
     protected $table = 'users';
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {   
+        static::addGlobalScope(new SellerScope);
+    }
 
     public function products() {
         return $this->hasMany(Product::class);

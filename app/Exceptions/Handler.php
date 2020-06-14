@@ -60,7 +60,6 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         Log::info("---------------------------------------------------------");
-        dd($exception);
         // Log::info($exception);
         if($exception instanceOf ModelNotFoundException) {
             $modelName = Str::lower(class_basename($exception->getModel()));
