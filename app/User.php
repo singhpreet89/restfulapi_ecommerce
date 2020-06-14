@@ -5,11 +5,12 @@ namespace App;
 use Illuminate\Support\Str;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, SoftDeletes;
 
     // TODO: VERIFIED_USER & UNVERIFIED_USER could be integers and ADMIN_USER, REGULAT_USER could be boolean
     const VERIFIED_USER = '1';
