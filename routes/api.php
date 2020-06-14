@@ -20,9 +20,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('users', 'User\UserController');
 Route::apiResource('buyers', 'Buyer\BuyerController')->only('index', 'show');
+Route::apiResource('buyers.transactions', 'Buyer\BuyerTransactionController')->only('index');
 Route::apiResource('sellers', 'Seller\SellerController')->only('index', 'show');
 Route::apiResource('categories', 'Category\CategoryController');
 Route::apiResource('products', 'Product\ProductController')->only('index', 'show');
 Route::apiResource('transactions', 'Transaction\TransactionController')->only('index', 'show');
-Route::apiResource('transactions.categories', 'Transaction\TransactionCategoryController')->only('index');  // api/transactions/{transaction}/categories 
-Route::apiResource('transactions.sellers', 'Transaction\TransactionSellerController')->only('index');       // api/transactions/{transaction}/sellers
+Route::apiResource('transactions.categories', 'Transaction\TransactionCategoryController')->only('index'); 
+Route::apiResource('transactions.sellers', 'Transaction\TransactionSellerController')->only('index');

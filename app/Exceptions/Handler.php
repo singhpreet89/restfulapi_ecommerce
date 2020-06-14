@@ -4,7 +4,6 @@ namespace App\Exceptions;
 
 use Throwable;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Database\QueryException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -59,8 +58,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        Log::info("---------------------------------------------------------");
-        // Log::info($exception);
         if($exception instanceOf ModelNotFoundException) {
             $modelName = Str::lower(class_basename($exception->getModel()));
 

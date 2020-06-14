@@ -21,8 +21,7 @@ class CategoryCollection extends JsonResource
          *! Else 
          *      Request is coming from api/categories route
          */ 
-        $endUrl = Route::currentRouteName() === 'transactions.categories.index' ? explode('.', Route::currentRouteName())[1] : $endUrl = explode('.', Route::currentRouteName())[0];
-
+        $endUrl = Route::currentRouteName() === 'transactions.categories.index' ? explode('.', Route::currentRouteName())[1] : explode('.', Route::currentRouteName())[0];
         return [
             'id' => $this->id,
             'name' => $this->name,
