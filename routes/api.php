@@ -24,4 +24,5 @@ Route::apiResource('sellers', 'Seller\SellerController')->only('index', 'show');
 Route::apiResource('categories', 'Category\CategoryController');
 Route::apiResource('products', 'Product\ProductController')->only('index', 'show');
 Route::apiResource('transactions', 'Transaction\TransactionController')->only('index', 'show');
-Route::apiResource('transactions.categories', 'Transaction\TransactionCategoryController')->only('index'); // api/transactions/{transaction}/categories 
+Route::apiResource('transactions.categories', 'Transaction\TransactionCategoryController')->only('index');  // api/transactions/{transaction}/categories 
+Route::apiResource('transactions.sellers', 'Transaction\TransactionSellerController')->only('index');       // api/transactions/{transaction}/sellers
