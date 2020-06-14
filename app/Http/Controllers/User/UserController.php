@@ -61,11 +61,8 @@ class UserController extends Controller
      * @param  User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(UserUpdateRequest $request, $id)
-    // public function update(UserUpdateRequest $request, User $user)
+    public function update(UserUpdateRequest $request, User $user)
     {   
-        $user = User::findOrFail($id);
-
         // TODO: Move these functions to the Service class
         if($request->has('name')) {
             $user->name = $request->name;

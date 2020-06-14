@@ -16,9 +16,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UserSeeder::class);
-        echo "\n***********************************************";
-        echo "\n             SEEDING IN PROGRESS\nNOTE: Seeding can take between 2 to 5 minutes.";
-        echo "\n***********************************************\n\n";
+        echo "\n\e[0;32m**********************************************\e[0m";
+        echo "\n             \e[1;33mSEEDING IN PROGRESS\e[0m\n";
+        echo "\e[0;31mNOTE: Seeding can take between 1 to 3 minutes.\e[0m";
+        echo "\n\e[0;32m**********************************************\e[0m\n\n";
 
         $users = 1000;
         $numberOfCategories = 30;

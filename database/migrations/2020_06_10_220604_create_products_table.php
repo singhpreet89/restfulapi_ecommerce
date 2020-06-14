@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('seller_id');
             $table->foreign('seller_id')->references('id')->on('users');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->text('description');
             $table->unsignedInteger('quantity');
             $table->string('status')->default(Product::UNAVAILABLE_PRODUCT);
