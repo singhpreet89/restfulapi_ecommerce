@@ -14,8 +14,14 @@ class CategoryCollection extends JsonResource
      * @return array
      */
     public function toArray($request)
-    {
-        $endUrl = explode('.', Route::currentRouteName())[0];
+    {   
+        /**
+         *! If Route = transactions.categories.index, 
+         *      Request is coming from api/transactions/{id}/categories route 
+         *! Else 
+         *      Request is coming from api/categories route
+         */ 
+        $endUrl = Route::currentRouteName() === 'transactions.categories.index' ? explode('.', Route::currentRouteName())[1] : $endUrl = explode('.', Route::currentRouteName())[0];
 
         return [
             'id' => $this->id,
