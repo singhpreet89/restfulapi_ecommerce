@@ -26,7 +26,6 @@ class BuyerProductController extends Controller
          * The result of $buyer->transactions is a collection as a Buyer has many Transactions
          * And each Transaction belogs to a Product
          */
-        // $products = $buyer->transactions->product;
         $transactionsWithProducts = $buyer->transactions()->with('product')->get();
         $products = $transactionsWithProducts->pluck('product');
         
