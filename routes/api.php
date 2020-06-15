@@ -19,13 +19,19 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::apiResource('users', 'User\UserController');
+
 Route::apiResource('buyers', 'Buyer\BuyerController')->only('index', 'show');
 Route::apiResource('buyers.transactions', 'Buyer\BuyerTransactionController')->only('index');
 Route::apiResource('buyers.products', 'Buyer\BuyerProductController')->only('index');
 Route::apiResource('buyers.sellers', 'Buyer\BuyerSellerController')->only('index');
+Route::apiResource('buyers.categories', 'Buyer\BuyerCategoryController')->only('index');
+
 Route::apiResource('sellers', 'Seller\SellerController')->only('index', 'show');
+
 Route::apiResource('categories', 'Category\CategoryController');
+
 Route::apiResource('products', 'Product\ProductController')->only('index', 'show');
+
 Route::apiResource('transactions', 'Transaction\TransactionController')->only('index', 'show');
 Route::apiResource('transactions.categories', 'Transaction\TransactionCategoryController')->only('index'); 
 Route::apiResource('transactions.sellers', 'Transaction\TransactionSellerController')->only('index');
