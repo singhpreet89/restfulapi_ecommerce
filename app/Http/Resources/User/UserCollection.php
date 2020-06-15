@@ -15,8 +15,9 @@ class UserCollection extends JsonResource
      */
     public function toArray($request)
     {   
-        $endUrl = Route::currentRouteName() === 'buyers.sellers.index' || Route::currentRouteName() === 'categories.sellers.index' || Route::currentRouteName() === 'categories.buyers.index'
-            ? explode('.', Route::currentRouteName())[1] : explode('.', Route::currentRouteName())[0];
+        $endUrl = Route::currentRouteName() === 'buyers.sellers.index' || Route::currentRouteName() === 'categories.sellers.index' 
+            || Route::currentRouteName() === 'categories.buyers.index' || Route::currentRouteName() === 'sellers.buyers.index'
+                ? explode('.', Route::currentRouteName())[1] : explode('.', Route::currentRouteName())[0];
         return [
             'id' => $this->id,
             'name' => $this->name,
