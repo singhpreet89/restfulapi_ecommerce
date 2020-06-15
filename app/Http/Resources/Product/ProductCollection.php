@@ -15,7 +15,8 @@ class ProductCollection extends JsonResource
      */
     public function toArray($request)
     {
-        $endUrl = Route::currentRouteName() === 'buyers.products.index' ? explode('.', Route::currentRouteName())[1] : explode('.', Route::currentRouteName())[0];
+        $endUrl = Route::currentRouteName() === 'buyers.products.index' || Route::currentRouteName() === 'categories.products.index' 
+            ? explode('.', Route::currentRouteName())[1] : explode('.', Route::currentRouteName())[0];
         return [
             'id' => $this->id,
             'seller_id' => $this->seller_id,

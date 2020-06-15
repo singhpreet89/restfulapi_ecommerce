@@ -20,6 +20,10 @@ class Product extends Model
         'name', 'description', 'quantity', 'status', 'image', 'seller_id',
     ];
 
+    protected $hidden = [
+        'pivot',
+    ];
+
     // TODO: isAvailable logic can be handled inside the Factory
     public function isAvailable() {
         return $this->status == Product::AVAILABLE_PRODUCT;
