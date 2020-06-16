@@ -51,7 +51,7 @@ class ProductCategoryController extends Controller
         // TODO: Use HttpException here
         if (!$product->categories()->find($category->id)) {
             return response([
-                'message' => 'Not fouund.',
+                'message' => 'Not found.',
                 'errors' => [
                     'category' => [
                         'The specified category does not belong to this product.'
