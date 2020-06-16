@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Product;
 
+use App\Events\CheckProductAvailabilityEvent;
 use App\User;
 use App\Product;
 use App\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use App\Http\Requests\Product\ProductBuyerTransactionRequest;
 use App\Http\Resources\Transaction\TransactionResource;
+use App\Http\Requests\Product\ProductBuyerTransactionRequest;
 
 class ProductBuyerTransactionController extends Controller
 {

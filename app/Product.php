@@ -4,6 +4,7 @@ namespace App;
 
 use App\Seller;
 use App\Category;
+use App\Events\CheckProductAvailabilityEvent;
 use App\Transaction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -24,8 +25,14 @@ class Product extends Model
         'pivot',
     ];
 
+    // ! Event emitter to change the product 'status' to 'unavailable' when the 'quantity' is reduced to 0 after performing a 'Transaction'
+    protected $dispatchesEvents = [
+        'updated' => CheckProductAvailabilityEvent::class,
+    ];
+
     // TODO: isAvailable logic can be handled inside the Factory
     public function isAvailable() {
+        // ! This returns a true or false
         return $this->status == Product::AVAILABLE_PRODUCT;
         // Or
         // return $this->status == self::AVAILABLE_PRODUCT;
