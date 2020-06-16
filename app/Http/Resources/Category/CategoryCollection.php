@@ -23,6 +23,7 @@ class CategoryCollection extends JsonResource
          */ 
         $endUrl = Route::currentRouteName() === 'transactions.categories.index' || Route::currentRouteName() === 'buyers.categories.index' 
             || Route::currentRouteName() === 'sellers.categories.index' || Route::currentRouteName() === 'products.categories.index'
+            || Route::currentRouteName() === 'products.categories.update' || Route::currentRouteName() === 'products.categories.destroy'
                 ? explode('.', Route::currentRouteName())[1] : explode('.', Route::currentRouteName())[0];
         return [
             'id' => $this->id,
