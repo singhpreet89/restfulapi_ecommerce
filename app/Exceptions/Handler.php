@@ -58,7 +58,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        if($exception instanceOf ModelNotFoundException) {
+        if ($exception instanceof ModelNotFoundException) {
             $modelName = Str::lower(class_basename($exception->getModel()));
 
             return response([
@@ -68,7 +68,7 @@ class Handler extends ExceptionHandler
                         "No {$modelName} found with the provided id."
                     ]
                 ]
-            ], Response::HTTP_NOT_FOUND); 
+            ], Response::HTTP_NOT_FOUND);
         }
 
         if ($exception instanceof NotFoundHttpException) {
@@ -119,9 +119,9 @@ class Handler extends ExceptionHandler
         if ($exception instanceof QueryException) {
             $errorCode =  $exception->errorInfo[1];
 
-            if($errorCode === 1451) {
+            if ($errorCode === 1451) {
                 return response([
-                    "message" => "Conflict",
+                    "message" => "Resource conflict.",
                     "errors" => [
                         'resource' => [
                             "This resource can't be removed due to a conflict with another resource."
@@ -129,8 +129,19 @@ class Handler extends ExceptionHandler
                     ],
                 ], Response::HTTP_CONFLICT);
             }
+
+            if ($errorCode === 1062) {
+                return response([
+                    "message" => "Resource conflict.",
+                    "errors" => [
+                        'resource' => [
+                            "This resource can't be added because it already exists."
+                        ]
+                    ],
+                ], Response::HTTP_CONFLICT);
+            }
         }
-        
+
         /**
          * If the exception is not one of the exceptions listed above
          * i.e. Database not connected 
@@ -138,7 +149,7 @@ class Handler extends ExceptionHandler
          *      Display the Detailed ERROR
          * ! ELSE -- In all other cases, send the Internal Server Error
          */
-        if(config('app.debug')) {
+        if (config('app.debug')) {
             return parent::render($request, $exception);
         }
 

@@ -30,7 +30,7 @@ Route::apiResource('sellers', 'Seller\SellerController')->only('index', 'show');
 Route::apiResource('sellers.transactions', 'Seller\SellerTransactionController')->only('index');
 Route::apiResource('sellers.categories', 'Seller\SellerCategoryController')->only('index');
 Route::apiResource('sellers.buyers', 'Seller\SellerBuyerController')->only('index');
-Route::apiResource('sellers.products', 'Seller\SellerProductController')->only('index');
+Route::apiResource('sellers.products', 'Seller\SellerProductController')->only('index', 'store', 'update', 'destroy');
 
 Route::apiResource('categories', 'Category\CategoryController');
 Route::apiResource('categories.products', 'Category\CategoryProductController')->only('index');
