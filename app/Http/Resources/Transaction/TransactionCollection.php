@@ -15,8 +15,9 @@ class TransactionCollection extends JsonResource
      */
     public function toArray($request)
     {
-        $endUrl = Route::currentRouteName() === 'buyers.transactions.index' || Route::currentRouteName() === 'categories.transactions.index' || Route::currentRouteName() === 'sellers.transactions.index'
-            ? explode('.', Route::currentRouteName())[1] : explode('.', Route::currentRouteName())[0];
+        $endUrl = Route::currentRouteName() === 'buyers.transactions.index' || Route::currentRouteName() === 'categories.transactions.index' 
+            || Route::currentRouteName() === 'sellers.transactions.index' || Route::currentRouteName() === 'products.transactions.index'
+                ? explode('.', Route::currentRouteName())[1] : explode('.', Route::currentRouteName())[0];
         return [
             'id' => $this->id,
             'quantity' => $this->quantity,

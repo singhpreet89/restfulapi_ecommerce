@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::apiResource('users', 'User\UserController');
+Route::apiResource('users', 'User\UserController');     // CRUD
 
 Route::apiResource('buyers', 'Buyer\BuyerController')->only('index', 'show');
 Route::apiResource('buyers.transactions', 'Buyer\BuyerTransactionController')->only('index');
@@ -30,7 +30,7 @@ Route::apiResource('sellers', 'Seller\SellerController')->only('index', 'show');
 Route::apiResource('sellers.transactions', 'Seller\SellerTransactionController')->only('index');
 Route::apiResource('sellers.categories', 'Seller\SellerCategoryController')->only('index');
 Route::apiResource('sellers.buyers', 'Seller\SellerBuyerController')->only('index');
-Route::apiResource('sellers.products', 'Seller\SellerProductController')->only('index', 'store', 'update', 'destroy');
+Route::apiResource('sellers.products', 'Seller\SellerProductController');   // CRUD
 
 Route::apiResource('categories', 'Category\CategoryController');
 Route::apiResource('categories.products', 'Category\CategoryProductController')->only('index');
@@ -39,6 +39,7 @@ Route::apiResource('categories.buyers', 'Category\CategoryBuyerController')->onl
 Route::apiResource('categories.transactions', 'Category\CategoryTransactionController')->only('index');
 
 Route::apiResource('products', 'Product\ProductController')->only('index', 'show');
+Route::apiResource('products.transactions', 'Product\ProductTransactionController')->only('index');
 
 Route::apiResource('transactions', 'Transaction\TransactionController')->only('index', 'show');
 Route::apiResource('transactions.categories', 'Transaction\TransactionCategoryController')->only('index');
