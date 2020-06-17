@@ -4,7 +4,9 @@ namespace App\Exceptions;
 
 use Throwable;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Database\QueryException;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -143,6 +145,15 @@ class Handler extends ExceptionHandler
         }
 
         /**
+         * ! Overriding the default Implementation of ValidationException rom \Vendor\Laravel\framework\src\illuminate\Foundation\Exception\Handler.php
+         * ? To make sure that the JSON responses could be returned when VALIDATION FAILS for query_parameters in the GET requests.
+         * ? Because, GET requests usually do not send the Accept: application/json HEADER along with the request which if bein checked by Default to return the JSON Response
+         */
+        if ($exception instanceof ValidationException) {
+            return $this->convertValidationExceptionToResponse($exception, $request);
+        }
+
+        /**
          * If the exception is not one of the exceptions listed above
          * i.e. Database not connected 
          * ! IF -- The application is in DEBUG mode
@@ -161,5 +172,39 @@ class Handler extends ExceptionHandler
                 ]
             ],
         ], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+
+    /**
+     * ! OVERRIDDEN FUNCTIONS
+     */
+
+    /**
+     * Create a response object from the given validation exception.
+     *
+     * @param  \Illuminate\Validation\ValidationException  $e
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function convertValidationExceptionToResponse(ValidationException $e, $request)
+    {
+        if ($e->response) {
+            return $e->response;
+        }
+
+        // return $request->expectsJson()
+        //             ? $this->invalidJson($request, $e)
+        //             : $this->invalid($request, $e);
+        
+        return $this->isFrontend($request) ? $this->invalid($request, $e) : $this->invalidJson($request, $e);
+    }
+
+
+    /**
+     * ! UTILITY FUNCTIONS
+     */
+    // Checking if the request is an HTML  request, using collections, find the middleware corresponding to the route and check if it contains 'web'
+    private function isFrontend($request) {
+        Log::info('i am here');
+        return $request->acceptsHtml() && collect($request->route()->middleware())->contains('web');
     }
 }

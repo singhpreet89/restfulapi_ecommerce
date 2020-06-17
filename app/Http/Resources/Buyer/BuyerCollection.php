@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\Buyer;
 
+use Illuminate\Support\Facades\Log;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BuyerCollection extends JsonResource

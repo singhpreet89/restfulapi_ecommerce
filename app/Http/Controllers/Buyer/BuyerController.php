@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Buyer;
 
 use App\Buyer;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Buyer\BuyerResource;
 use App\Http\Resources\Buyer\BuyerCollection;
+use App\Services\PaginationService;
 
 class BuyerController extends Controller
 {
@@ -16,14 +16,16 @@ class BuyerController extends Controller
      * @param  Buyer $buyer
      * @return \Illuminate\Http\Response
      */
-    public function index(Buyer $buyer)
+    public function index(Buyer $buyer, PaginationService $paginationService)
     {
-        // If the User has atleast one Transaction then he is a Buyer
+        // ! If the User has atleast one Transaction then he is a Buyer
         // $buyers = Buyer::has('transactions')->paginate(20);
         
         // ? Buyer::has('transactions') is being handled in the BuyerScope
-        $buyers = $buyer->paginate(20);
-        return BuyerCollection::collection($buyers);
+        $buyers = $buyer->all();
+        $paginatedBuyers = $paginationService->paginate($buyers);
+
+        return BuyerCollection::collection($paginatedBuyers);
     }
 
     /**
