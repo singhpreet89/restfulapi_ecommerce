@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Buyer;
 use App\Buyer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\User\UserResource;
-use App\Http\Resources\User\UserCollection;
+use App\Http\Resources\Buyer\BuyerResource;
+use App\Http\Resources\Buyer\BuyerCollection;
 
 class BuyerController extends Controller
 {
@@ -23,7 +23,7 @@ class BuyerController extends Controller
         
         // ? Buyer::has('transactions') is being handled in the BuyerScope
         $buyers = $buyer->paginate(20);
-        return UserCollection::collection($buyers);
+        return BuyerCollection::collection($buyers);
     }
 
     /**
@@ -37,6 +37,6 @@ class BuyerController extends Controller
         // $buyer = Buyer::has('transactions')->findOrFail($id);
 
         // ? Buyer::has('transactions') is being handled in the BuyerScope
-        return new UserResource($buyer);
+        return new BuyerResource($buyer);
     }
 }

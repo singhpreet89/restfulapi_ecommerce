@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Product;
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductCollection extends JsonResource
@@ -15,8 +14,6 @@ class ProductCollection extends JsonResource
      */
     public function toArray($request)
     {
-        $endUrl = Route::currentRouteName() === 'buyers.products.index' || Route::currentRouteName() === 'categories.products.index' || Route::currentRouteName() === 'sellers.products.index'
-            ? explode('.', Route::currentRouteName())[1] : explode('.', Route::currentRouteName())[0];
         return [
             'id' => $this->id,
             'seller_id' => $this->seller_id,
@@ -24,9 +21,10 @@ class ProductCollection extends JsonResource
             'description' => $this->description,
             'quantity' => $this->quantity,
             'status' => $this->status,
+            'image' => url("img/{$this->image}"),
             'link' => [
                 'rel' => 'self',
-                'href' => route($endUrl . '.show', $this->id),
+                'href' => route('products.show', $this->id),
             ],
         ];
     }

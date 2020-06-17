@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Category;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\User\UserCollection;
+use App\Http\Resources\Seller\SellerCollection;
 
 class CategorySellerController extends Controller
 {
@@ -25,6 +25,6 @@ class CategorySellerController extends Controller
             $sellers = $productsWithSeller->pluck('seller');
         }
 
-        return UserCollection::collection($sellers);
+        return SellerCollection::collection($sellers);
     }
 }

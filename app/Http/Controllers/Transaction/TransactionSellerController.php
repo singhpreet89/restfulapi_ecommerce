@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Transaction;
 use App\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\User\UserResource;
+use App\Http\Resources\Seller\SellerResource;
 
 class TransactionSellerController extends Controller
 {
@@ -17,6 +17,6 @@ class TransactionSellerController extends Controller
     public function index(Transaction $transaction)
     {
         $seller = $transaction->product->seller;
-        return new UserResource($seller);
+        return new SellerResource($seller);
     }
 }

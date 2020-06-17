@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Seller;
 use App\Seller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\User\UserCollection;
+use App\Http\Resources\Buyer\BuyerCollection;
 
 class SellerBuyerController extends Controller
 {
@@ -26,6 +26,6 @@ class SellerBuyerController extends Controller
             $buyers = $transactions->pluck('buyer');
         }
 
-        return UserCollection::collection($buyers);
+        return BuyerCollection::collection($buyers);
     }
 }

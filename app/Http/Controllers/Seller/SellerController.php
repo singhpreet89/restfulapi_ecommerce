@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Seller;
 use App\Seller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\User\UserResource;
-use App\Http\Resources\User\UserCollection;
+use App\Http\Resources\Seller\SellerResource;
+use App\Http\Resources\Seller\SellerCollection;
 
 class SellerController extends Controller
 {
@@ -23,7 +23,7 @@ class SellerController extends Controller
         
         // ? Seller::has('products') is being handled in the SellerScope
         $sellers = $seller->paginate(20);
-        return UserCollection::collection($sellers);
+        return SellerCollection::collection($sellers);
     }
 
     /**
@@ -37,6 +37,6 @@ class SellerController extends Controller
         // $seller = Seller::has('products')->findOrFail($id);
 
         // ? Seller::has('products') is being handled in the SellerScope
-        return new UserResource($seller);
+        return new SellerResource($seller);
     }
 }

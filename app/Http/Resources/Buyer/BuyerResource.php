@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Transaction;
+namespace App\Http\Resources\Buyer;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TransactionResource extends JsonResource
+class BuyerResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +16,9 @@ class TransactionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'quantity' => $this->quantity,
-            'buyer_id' => $this->buyer_id,
-            'product_id' => $this->product_id,
+            'name' => $this->name,
+            'email' => $this->email,
+            'isVerified' => (int)$this->verified,
             'createdAt' => (string)$this->created_at,
             'updatedAt' => (string)$this->updated_at,
             'deletedAt' => isset($this->deleted_at) ? (string)$this->deleted_at : null,

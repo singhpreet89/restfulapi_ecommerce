@@ -21,10 +21,10 @@ class ProductResource extends JsonResource
             'description' => $this->description,
             'quantity' => $this->quantity,
             'status' => $this->status,
-            'image' => $this->image,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'deleted_at' => $this->deleted_at,
+            'image' => url("img/{$this->image}"),
+            'createdAt' => (string)$this->created_at,
+            'updatedAt' => (string)$this->updated_at,
+            'deletedAt' => isset($this->deleted_at) ? (string)$this->deleted_at : null,
         ];
     }
 }

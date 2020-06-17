@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Buyer;
 
 use App\Buyer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\User\UserCollection;
-use App\Http\Requests\Buyer\BuyerSellerIndexRequest;
+use App\Http\Resources\Seller\SellerCollection;
 
 class BuyerSellerController extends Controller
 {
@@ -41,6 +39,6 @@ class BuyerSellerController extends Controller
             $sellers = $transactionsWithProductsAndSellers->pluck('product.seller');
         }
   
-        return UserCollection::collection($sellers);
+        return SellerCollection::collection($sellers);
     }
 }
