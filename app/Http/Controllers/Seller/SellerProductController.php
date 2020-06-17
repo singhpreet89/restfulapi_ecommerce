@@ -7,6 +7,7 @@ use App\Seller;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Resources\Product\ProductResource;
 use App\Http\Requests\Seller\SellerStoreRequest;
@@ -37,7 +38,7 @@ class SellerProductController extends Controller
         // ! User $seller A user object has to be of a Seller type 
         $data = $request->all();
         $data['status'] = Product::UNAVAILABLE_PRODUCT;
-        $data['image'] = '4.jpg';   // HARDCODED for now
+        $data['image'] = $request->image->store('');    // ? Path is calculated through the FILESYSTEM drivers described inside the config/filesystem AND a random name is assigned to the uploaded file.
         $data['seller_id'] = $seller->id;
 
         $product = Product::create($data);
@@ -85,6 +86,11 @@ class SellerProductController extends Controller
             }
         }
 
+        if($request->has('image')) {
+            Storage::delete($product->image);
+            $product->image = $request->image->store(''); 
+        }
+
         $product->save();
         return new ProductResource($product);
     }
@@ -110,6 +116,8 @@ class SellerProductController extends Controller
         }
 
         $product->delete();
-        return new ProductResource($product); 
+        Storage::delete($product->image);   // TODO: This deleted the image even if the product is Soft-deleted. MAKE SURE NOT TO REMOVE THE IMAGE when the resource is deleted
+
+        return new ProductResource($product);
     }
 }
