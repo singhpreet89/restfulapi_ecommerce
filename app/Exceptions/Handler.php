@@ -198,13 +198,11 @@ class Handler extends ExceptionHandler
         return $this->isFrontend($request) ? $this->invalid($request, $e) : $this->invalidJson($request, $e);
     }
 
-
     /**
      * ! UTILITY FUNCTIONS
      */
     // Checking if the request is an HTML  request, using collections, find the middleware corresponding to the route and check if it contains 'web'
     private function isFrontend($request) {
-        Log::info('i am here');
         return $request->acceptsHtml() && collect($request->route()->middleware())->contains('web');
     }
 }

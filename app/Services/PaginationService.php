@@ -17,7 +17,6 @@ class PaginationService
         $this->page = LengthAwarePaginator::resolveCurrentPage();   // To find which page we are on
     }
 
-    // public function paginate(Collection $collection, Request $request)
     public function paginate(Collection $collection)
     {
         // ? Performing the Validation here to eliminate the need of creating the Request Validation for each Controller's Index method where PAGINATION will be used 
