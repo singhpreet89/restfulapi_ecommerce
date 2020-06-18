@@ -6,8 +6,8 @@ use App\Buyer;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Buyer\BuyerResource;
 use App\Http\Resources\Buyer\BuyerCollection;
-use App\Services\PaginationService;
-use App\Services\FilterAndSortService;
+use App\Services\Pagination\PaginationFacade;
+use App\Services\FilterAndSort\FilterAndSortFacade;
 
 class BuyerController extends Controller
 {
@@ -17,15 +17,15 @@ class BuyerController extends Controller
      * @param  Buyer $buyer
      * @return \Illuminate\Http\Response
      */
-    public function index(Buyer $buyer, FilterAndSortService $filterAndSortService, PaginationService $paginationService)
+    public function index(Buyer $buyer)
     {
         // ! If the User has atleast one Transaction then he is a Buyer
-        // $buyers = Buyer::has('transactions')->paginate(20);
+        // $buyers = Buyer::has('transactions')->get();
 
         // ? Buyer::has('transactions') is being handled in the BuyerScope
         $buyers = $buyer->all();
-        $filteredAndSortedBuyers = $filterAndSortService->apply($buyers, $buyer);
-        $paginatedBuyers = $paginationService->paginate($filteredAndSortedBuyers);
+        $filteredAndSortedBuyers = FilterAndSortFacade::apply($buyers, $buyer);
+        $paginatedBuyers = PaginationFacade::apply($filteredAndSortedBuyers);
 
         return BuyerCollection::collection($paginatedBuyers);
     }

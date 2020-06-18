@@ -4,15 +4,14 @@ namespace App\Http\Controllers\User;
 
 use App\User;
 use Illuminate\Http\Request;
-use App\Services\PaginationService;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Services\FilterAndSortService;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\UserCollection;
 use App\Http\Requests\User\UserStoreRequest;
 use App\Http\Requests\User\UserUpdateRequest;
+use App\Services\Pagination\PaginationFacade;
 use Symfony\Component\HttpFoundation\Response;
+use App\Services\FilterAndSort\FilterAndSortFacade;
 
 class UserController extends Controller
 {
@@ -21,13 +20,12 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(User $user, FilterAndSortService $filterAndSortService, PaginationService $paginationService)
+    public function index(User $user)
     {
-        // $users = User::paginate(20);
         $users = $user->all();
-        $filteredAndSortedUsers = $filterAndSortService->apply($users, $user);
-        $paginatedUsers = $paginationService->paginate($filteredAndSortedUsers);
-
+        $filteredAndSortedUsers = FilterAndSortFacade::apply($users, $user);
+        $paginatedUsers = PaginationFacade::apply($filteredAndSortedUsers);
+        
         return UserCollection::collection($paginatedUsers);
     }
 
@@ -68,24 +66,24 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(UserUpdateRequest $request, User $user)
-    {   
+    {
         // TODO: Move these functions to the Service class
-        if($request->has('name')) {
+        if ($request->has('name')) {
             $user->name = $request->name;
         }
 
-        if($request->has('email') && $user->email != $request->email) {
+        if ($request->has('email') && $user->email != $request->email) {
             $user->verified = User::UNVERIFIED_USER;
             $user->verification_token = User::generateVerificationCode();
             $user->email = $request->email;
         }
 
-        if($request->has('password')) {
+        if ($request->has('password')) {
             $user->password = bcrypt($request->password);
         }
 
-        if($request->has('admin')) {
-            if(!$user->isVerified()) {
+        if ($request->has('admin')) {
+            if (!$user->isVerified()) {
                 return response([
                     'message' => 'Not verified.',
                     'errors' => [
@@ -93,7 +91,7 @@ class UserController extends Controller
                             'Only verified users can modify the admin field.'
                         ]
                     ]
-                ], Response::HTTP_FORBIDDEN); 
+                ], Response::HTTP_FORBIDDEN);
             }
             $user->admin = $request->admin;
         }

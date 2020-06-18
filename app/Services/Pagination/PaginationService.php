@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Pagination;
 
 use Illuminate\Support\Facades\Request;
-// use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -18,13 +17,16 @@ class PaginationService
         $this->page = LengthAwarePaginator::resolveCurrentPage();   // To find which page we are on
     }
 
-    public function paginate(Collection $collection)
+    private function validate()
     {
         // ? Performing the Validation here to eliminate the need of creating the Request Validation for each Controller's Index method where PAGINATION will be used 
         Request::validate([
             'per_page' => 'bail|sometimes|required|integer|min:2|max:50',  // 'bail' makes sure that the Request Stops on the First Validation Failure
         ]);
+    }
 
+    private function paginate(Collection $collection)
+    {
         if (Request::has('per_page')) {
             $this->perPage = (int) Request::input('per_page');
         }
@@ -38,5 +40,13 @@ class PaginationService
 
         $paginated->appends(Request::all());    // ! So, Appending the other request parameters such as 'sort_by' again
         return $paginated;
+    }
+
+    public function apply(Collection $collection)
+    {
+        $this->validate();
+        $paginatedCollection = $this->paginate($collection);
+
+        return $paginatedCollection;
     }
 }

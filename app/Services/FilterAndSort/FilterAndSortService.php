@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\FilterAndSort;
 
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request;
-// use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Collection;
 
 class FilterAndSortService
 {
@@ -19,7 +18,7 @@ class FilterAndSortService
         //
     }
 
-    private function getTableFields(Model $model)
+    private function getTableColumns(Model $model)
     {
         $tableName = $model->getTable();
         $this->tableColumns = Schema::getColumnListing($tableName);
@@ -65,7 +64,7 @@ class FilterAndSortService
     // Receiving the Collection and Model instance
     public function apply(Collection $collection, Model $model)
     {
-        $this->getTableFields($model);
+        $this->getTableColumns($model);
 
         $filteredCollection = $this->filterCollection($collection);
         $filteredAndSortedCollection = $this->sortCollection($filteredCollection);

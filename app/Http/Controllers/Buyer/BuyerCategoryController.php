@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Buyer;
 
 use App\Buyer;
 use App\Category;
-use App\Services\PaginationService;
 use App\Http\Controllers\Controller;
-use App\Services\FilterAndSortService;
 use Illuminate\Support\Facades\Request;
 use App\Http\Resources\Category\CategoryCollection;
+use App\Services\FilterAndSort\FilterAndSortFacade;
+use App\Services\Pagination\PaginationFacade;
 
 class BuyerCategoryController extends Controller
 {
@@ -17,7 +17,7 @@ class BuyerCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Buyer $buyer, Category $category, FilterAndSortService $filterAndSortService, PaginationService $paginationService)
+    public function index(Buyer $buyer, Category $category)
     {
         /**
          * ! EAGER LOAGING
@@ -36,9 +36,9 @@ class BuyerCategoryController extends Controller
          */
         $transactionsWithProductsAndCategories = $buyer->transactions()->with('product.categories')->get();
         $categories = $transactionsWithProductsAndCategories->pluck('product.categories')->collapse()->unique('id')->values();
-        
-        $filteredAndSortedCategories = $filterAndSortService->apply($categories, $category);
-        $paginatedCategories = $paginationService->paginate($filteredAndSortedCategories);
+
+        $filteredAndSortedCategories = FilterAndSortFacade::apply($categories, $category);
+        $paginatedCategories = PaginationFacade::apply($filteredAndSortedCategories);
 
         return CategoryCollection::collection($paginatedCategories);
     }
