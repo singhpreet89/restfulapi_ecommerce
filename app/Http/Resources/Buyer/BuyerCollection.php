@@ -20,7 +20,7 @@ class BuyerCollection extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'isVerified' => (int)$this->verified,
+            'verified' => (int) $this->verified,
             'link' => [
                 'rel' => 'self',
                 'href' => route('buyers.show', $this->id),

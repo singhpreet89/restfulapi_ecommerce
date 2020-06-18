@@ -18,11 +18,11 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'isVerified' => (int)$this->verified,
-            'isAdmin' => $this->admin === "true" ? true : false,
-            'createdAt' => (string)$this->created_at,
-            'updatedAt' => (string)$this->updated_at,
-            'deletedAt' => isset($this->deleted_at) ? (string)$this->deleted_at : null,
+            'verified' => (int) $this->verified,
+            'admin' => $this->admin === "true" ? true : false,
+            'created_at' => isset($this->created_at) ? (string) $this->created_at : null,
+            'updated_at' => isset($this->updated_at) ? (string) $this->updated_at : null,
+            'deleted_at' => isset($this->deleted_at) ? (string) $this->deleted_at : null,
         ];
     }
 }

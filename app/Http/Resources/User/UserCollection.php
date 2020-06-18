@@ -13,13 +13,13 @@ class UserCollection extends JsonResource
      * @return array
      */
     public function toArray($request)
-    {   
+    {
         return [
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'isVerified' => (int)$this->verified,
-            'isAdmin' => $this->admin === "true" ? true : false,
+            'verified' => (int) $this->verified,
+            'admin' => $this->admin === "true" ? true : false,
             'link' => [
                 'rel' => 'self',
                 'href' => route('users.show', $this->id),
