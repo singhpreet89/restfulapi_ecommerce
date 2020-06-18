@@ -4,8 +4,10 @@ namespace App\Http\Controllers\User;
 
 use App\User;
 use Illuminate\Http\Request;
+use App\Services\PaginationService;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Services\FilterAndSortService;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\UserCollection;
 use App\Http\Requests\User\UserStoreRequest;
@@ -19,10 +21,14 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $user, FilterAndSortService $filterAndSortService, PaginationService $paginationService)
     {
-        $users = User::paginate(20);
-        return UserCollection::collection($users);
+        // $users = User::paginate(20);
+        $users = $user->all();
+        $filteredAndSortedUsers = $filterAndSortService->apply($users, $user);
+        $paginatedUsers = $paginationService->paginate($filteredAndSortedUsers);
+
+        return UserCollection::collection($paginatedUsers);
     }
 
     /**

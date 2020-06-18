@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Buyer;
 
 use App\Buyer;
-use Illuminate\Http\Request;
+use App\Category;
+use App\Services\PaginationService;
 use App\Http\Controllers\Controller;
+use App\Services\FilterAndSortService;
+use Illuminate\Support\Facades\Request;
 use App\Http\Resources\Category\CategoryCollection;
 
 class BuyerCategoryController extends Controller
@@ -14,7 +17,7 @@ class BuyerCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, Buyer $buyer)
+    public function index(Buyer $buyer, Category $category, FilterAndSortService $filterAndSortService, PaginationService $paginationService)
     {
         /**
          * ! EAGER LOAGING
@@ -32,14 +35,11 @@ class BuyerCategoryController extends Controller
          * ? To remove a null object from the collection, as the output of unique(), values() recreates the collection index and removes the null index
          */
         $transactionsWithProductsAndCategories = $buyer->transactions()->with('product.categories')->get();
+        $categories = $transactionsWithProductsAndCategories->pluck('product.categories')->collapse()->unique('id')->values();
+        
+        $filteredAndSortedCategories = $filterAndSortService->apply($categories, $category);
+        $paginatedCategories = $paginationService->paginate($filteredAndSortedCategories);
 
-        $categories = "";
-        if($request->query('unique') === "true") {
-            $categories = $transactionsWithProductsAndCategories->pluck('product.categories')->collapse()->unique('id')->values();
-        } else {
-            $categories = $transactionsWithProductsAndCategories->pluck('product.categories')->collapse();
-        }
-            
-        return CategoryCollection::collection($categories);
+        return CategoryCollection::collection($paginatedCategories);
     }
 }
