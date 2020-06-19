@@ -7,6 +7,13 @@ use App\Scopes\SellerScope;
 
 class Seller extends User
 {
+    const ENABLE_FILTER_FOR_COLUMNS = [
+        'id',
+        'name',
+        'email',
+        'verified',
+    ];
+
     /**
      * To eliminate the error 'sellers table not found' while seeding the database. 
      * And to use the 'users' table to add a new Seller through API POST request. 

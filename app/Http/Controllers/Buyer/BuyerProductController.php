@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Buyer;
 
 use App\Buyer;
+use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\Pagination\PaginationFacade;
 use App\Http\Resources\Product\ProductCollection;
+use App\Services\FilterAndSort\FilterAndSortFacade;
 
 class BuyerProductController extends Controller
 {
@@ -14,7 +17,7 @@ class BuyerProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Buyer $buyer)
+    public function index(Buyer $buyer, Product $product)
     {  
         /**
          * ! EAGER LOAGING
@@ -29,6 +32,9 @@ class BuyerProductController extends Controller
         $transactionsWithProducts = $buyer->transactions()->with('product')->get();
         $products = $transactionsWithProducts->pluck('product');
         
-        return ProductCollection::collection($products);
+        $filteredAndSortedProducts = FilterAndSortFacade::apply($products, $product);
+        $paginatedProducts = PaginationFacade::apply($filteredAndSortedProducts);
+        
+        return ProductCollection::collection($paginatedProducts);
     }
 }

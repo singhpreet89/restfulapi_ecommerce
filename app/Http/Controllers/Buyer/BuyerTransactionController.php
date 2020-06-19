@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Buyer;
 
 use App\Buyer;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\Transaction\TransactionCollection;
+use App\Transaction;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Services\Pagination\PaginationFacade;
+use App\Services\FilterAndSort\FilterAndSortFacade;
+use App\Http\Resources\Transaction\TransactionCollection;
 
 class BuyerTransactionController extends Controller
 {
@@ -14,9 +17,13 @@ class BuyerTransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Buyer $buyer)
+    public function index(Buyer $buyer, Transaction $transaction)
     {
         $transactions = $buyer->transactions;
-        return TransactionCollection::collection($transactions);
+
+        $filteredAndSortedTransactions = FilterAndSortFacade::apply($transactions, $transaction);
+        $paginatedTransactions = PaginationFacade::apply($filteredAndSortedTransactions);
+
+        return TransactionCollection::collection($paginatedTransactions);
     }
 }
