@@ -7,11 +7,18 @@ use App\Scopes\BuyerScope;
 
 class Buyer extends User
 {
+    const ENABLE_FILTER_FOR_COLUMNS = [
+        'id',
+        'name',
+        'email',
+        'verified',
+    ];
+
     /**
      * To eliminate the error 'buyers table not found' while seeding the database. 
      * And to use the 'users' table to add a new Buyer through API POST request. 
      * Because the 'buyers' table does not exist 
-     * */ 
+     * */
     protected $table = 'users';
 
     /**
@@ -24,7 +31,8 @@ class Buyer extends User
         static::addGlobalScope(new BuyerScope);
     }
 
-    public function transactions() {
+    public function transactions()
+    {
         return $this->hasMany(Transaction::class);
     }
 }
