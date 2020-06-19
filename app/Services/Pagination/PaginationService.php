@@ -2,8 +2,9 @@
 
 namespace App\Services\Pagination;
 
-use Illuminate\Support\Facades\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class PaginationService
@@ -21,14 +22,30 @@ class PaginationService
     {
         // ? Performing the Validation here to eliminate the need of creating the Request Validation for each Controller's Index method where PAGINATION will be used 
         Request::validate([
-            'per_page' => 'bail|sometimes|required|integer|min:2|max:50',  // 'bail' makes sure that the Request Stops on the First Validation Failure
+            'per_page' => [
+                'bail',         // 'bail' makes sure that the Request Stops on the First Validation Failure
+                'sometimes',
+                'required',
+                // Rule::in(array_merge(["disabled"], range(2, 50))),
+                function ($attribute, $value, $fail) {
+                    if (((int) $value >= 2 && (int) $value <= 50) || $value === 'disabled') {
+                        return true;
+                    } else {
+                        $fail("The selected " . $attribute . " must be an integer between 2 to 50 or a string 'disabled'.");
+                    }
+                },
+            ],
         ]);
     }
 
     private function paginate(Collection $collection)
     {
         if (Request::has('per_page')) {
-            $this->perPage = (int) Request::input('per_page');
+            if (Request::input('per_page') === 'disabled') {
+                return $collection;
+            } else {
+                $this->perPage = (int) Request::input('per_page');
+            }
         }
 
         $results = $collection->slice(($this->page - 1) * $this->perPage, $this->perPage)->values();    // Because the first index of collection is 0, but LengthAwarePaginator will start from Page 1
