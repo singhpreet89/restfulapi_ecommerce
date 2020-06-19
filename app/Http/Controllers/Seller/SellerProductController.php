@@ -8,11 +8,13 @@ use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use App\Services\Pagination\PaginationFacade;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Resources\Product\ProductResource;
 use App\Http\Requests\Seller\SellerStoreRequest;
 use App\Http\Requests\Seller\SellerUpdateRequest;
 use App\Http\Resources\Product\ProductCollection;
+use App\Services\FilterAndSort\FilterAndSortFacade;
 
 class SellerProductController extends Controller
 {
@@ -21,10 +23,14 @@ class SellerProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Seller $seller)
+    public function index(Seller $seller, Product $product)
     {
         $products = $seller->products;
-        return ProductCollection::collection($products);
+
+        $filteredAndSortedProducts = FilterAndSortFacade::apply($products, $product);
+        $paginatedProducts = PaginationFacade::apply($filteredAndSortedProducts);
+
+        return ProductCollection::collection($paginatedProducts);
     }
 
     /**

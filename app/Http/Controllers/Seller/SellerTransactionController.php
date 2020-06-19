@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Seller;
+use App\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\Pagination\PaginationFacade;
+use App\Services\FilterAndSort\FilterAndSortFacade;
 use App\Http\Resources\Transaction\TransactionCollection;
 
 class SellerTransactionController extends Controller
@@ -14,11 +17,14 @@ class SellerTransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Seller $seller)
+    public function index(Seller $seller, Transaction $transaction)
     {
         $productWithTransactions = $seller->products()->whereHas('transactions')->with('transactions')->get();
         $transactions = $productWithTransactions->pluck('transactions')->collapse();
 
-        return TransactionCollection::collection($transactions);
+        $filteredAndSortedTransactions = FilterAndSortFacade::apply($transactions, $transaction);
+        $paginatedTransactions = PaginationFacade::apply($filteredAndSortedTransactions);
+
+        return TransactionCollection::collection($paginatedTransactions);
     }
 }

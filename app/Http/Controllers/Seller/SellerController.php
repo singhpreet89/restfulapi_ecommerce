@@ -6,7 +6,9 @@ use App\Seller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Seller\SellerResource;
+use App\Services\Pagination\PaginationFacade;
 use App\Http\Resources\Seller\SellerCollection;
+use App\Services\FilterAndSort\FilterAndSortFacade;
 
 class SellerController extends Controller
 {
@@ -21,9 +23,13 @@ class SellerController extends Controller
         // If the User has atleast one Product then he is a Seller
         // $sellers = Seller::has('products')->paginate(20);
         
-        // ? Seller::has('products') is being handled in the SellerScope
-        $sellers = $seller->paginate(20);
-        return SellerCollection::collection($sellers);
+        // ? Seller::has('products') is being handled in the SellerScope 
+        $sellers = $seller->all();
+
+        $filteredAndSortedSellers = FilterAndSortFacade::apply($sellers, $seller);
+        $paginatedSellers = PaginationFacade::apply($filteredAndSortedSellers);
+
+        return SellerCollection::collection($paginatedSellers);
     }
 
     /**
