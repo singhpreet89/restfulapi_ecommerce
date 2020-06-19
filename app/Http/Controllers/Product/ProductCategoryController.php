@@ -6,8 +6,10 @@ use App\Product;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\Pagination\PaginationFacade;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Resources\Category\CategoryCollection;
+use App\Services\FilterAndSort\FilterAndSortFacade;
 
 class ProductCategoryController extends Controller
 {
@@ -16,10 +18,14 @@ class ProductCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Product $product)
+    public function index(Product $product, Category $category)
     {
         $categories = $product->categories;
-        return CategoryCollection::collection($categories);
+
+        $filteredAndSortedCategories = FilterAndSortFacade::apply($categories, $category);
+        $paginatedCategories = PaginationFacade::apply($filteredAndSortedCategories);
+        
+        return CategoryCollection::collection($paginatedCategories);
     }
 
     /**
@@ -61,6 +67,12 @@ class ProductCategoryController extends Controller
         }
 
         $product->categories()->detach($category->id);
-        return CategoryCollection::collection($product->categories);
+
+        $categories = $product->categories;
+
+        $filteredAndSortedCategories = FilterAndSortFacade::apply($categories, $category);
+        $paginatedCategories = PaginationFacade::apply($filteredAndSortedCategories);
+
+        return CategoryCollection::collection($paginatedCategories);
     }
 }

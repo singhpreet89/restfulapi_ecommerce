@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Product;
 
 use App\Product;
+use App\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\Pagination\PaginationFacade;
+use App\Services\FilterAndSort\FilterAndSortFacade;
 use App\Http\Resources\Transaction\TransactionCollection;
 
 class ProductTransactionController extends Controller
@@ -14,9 +17,13 @@ class ProductTransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Product $product)
+    public function index(Product $product, Transaction $transaction)
     {
         $transactions = $product->transactions;
-        return TransactionCollection::collection($transactions);
+
+        $filteredAndSortedTransactions = FilterAndSortFacade::apply($transactions, $transaction);
+        $paginatedTransactions = PaginationFacade::apply($filteredAndSortedTransactions);
+        
+        return TransactionCollection::collection($paginatedTransactions);
     }
 }

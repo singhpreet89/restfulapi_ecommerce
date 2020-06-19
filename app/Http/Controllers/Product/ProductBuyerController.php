@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Product;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\Buyer\BuyerCollection;
+use App\Buyer;
 use App\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Buyer\BuyerCollection;
+use App\Services\Pagination\PaginationFacade;
+use App\Services\FilterAndSort\FilterAndSortFacade;
 
 class ProductBuyerController extends Controller
 {
@@ -14,11 +17,14 @@ class ProductBuyerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Product $product)
+    public function index(Product $product, Buyer $buyer)
     {
         $transactionsWithBuyers = $product->transactions()->with('buyer')->get();
         $buyers = $transactionsWithBuyers->pluck('buyer')->unique('id')->values();
 
-        return BuyerCollection::collection($buyers);
+        $filteredAndSortedBuyers = FilterAndSortFacade::apply($buyers, $buyer);
+        $paginatedBuyers = PaginationFacade::apply($filteredAndSortedBuyers);
+
+        return BuyerCollection::collection($paginatedBuyers);
     }
 }

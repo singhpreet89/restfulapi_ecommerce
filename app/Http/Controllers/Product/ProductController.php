@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Product;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\Pagination\PaginationFacade;
 use App\Http\Resources\Product\ProductResource;
 use App\Http\Resources\Product\ProductCollection;
+use App\Services\FilterAndSort\FilterAndSortFacade;
 
 class ProductController extends Controller
 {
@@ -15,10 +17,14 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Product $product)
     {
-        $products = Product::paginate(20);
-        return ProductCollection::collection($products);
+        $products = $product->all();
+
+        $filteredAndSortedProducts = FilterAndSortFacade::apply($products, $product);
+        $paginatedProducts = PaginationFacade::apply($filteredAndSortedProducts);
+        
+        return ProductCollection::collection($paginatedProducts);
     }
 
     /**
