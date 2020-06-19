@@ -12,6 +12,9 @@ class Seller extends User
         'name',
         'email',
         'verified',
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
     /**

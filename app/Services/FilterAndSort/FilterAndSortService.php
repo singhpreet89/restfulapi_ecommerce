@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Request;
 class FilterAndSortService
 {
     private $tableColumns;
-    private $filterEnabledColumns;
+    private $filterAndSortOnColumns;
     private $supportedQueryParameters;
 
     public function __construct()
@@ -22,7 +22,7 @@ class FilterAndSortService
             explode(
                 ',',
                 env('SUPPORTED_QUERY_PARAMETERS', [
-                    'sort_by', 'desc', 'per_page', 'unique'
+                    'sort_by', 'desc', 'per_page', 'unique', 'page' // 'page' is being used inside the paginated links
                 ])
             );
     }
@@ -39,7 +39,7 @@ class FilterAndSortService
          **/
         $className = get_class($model);
         $reflection = new ReflectionClass($className);
-        $this->filterEnabledColumns = $reflection->getConstant('ENABLE_FILTER_FOR_COLUMNS');
+        $this->filterAndSortOnColumns = $reflection->getConstant('ENABLE_FILTER_SORT_ON');
     }
 
     private function filterCollection(Collection $collection)
@@ -52,8 +52,8 @@ class FilterAndSortService
          *          * The query parameter must be one of the tables's columns   
          */
         $tableFilterEnabledColumnsCollection = collect();
-        if (is_array($this->filterEnabledColumns) && sizeOf($this->filterEnabledColumns) > 0) {
-            $tableFilterEnabledColumnsCollection = collect($this->filterEnabledColumns);
+        if (is_array($this->filterAndSortOnColumns) && sizeOf($this->filterAndSortOnColumns) > 0) {
+            $tableFilterEnabledColumnsCollection = collect($this->filterAndSortOnColumns);
         } else {
             $tableFilterEnabledColumnsCollection = collect($this->tableColumns);
         }
@@ -94,10 +94,13 @@ class FilterAndSortService
         // ? Performing the Validation here to eliminate the need of creating the Request Validation for each Controller's Index method where SORTING will be used 
         Request::validate([
             'sort_by' => [
-                'bail',                             // 'bail' makes sure that the Request Stops on the First Validation Failure
+                'bail',         // 'bail' makes sure that the Request Stops on the First Validation Failure
                 'sometimes',
                 'required',
-                Rule::in($this->tableColumns),      // The sort_by Query paramere could only be sorted by the table columns
+                Rule::in(
+                    is_array($this->filterAndSortOnColumns) && sizeOf($this->filterAndSortOnColumns) > 0 
+                        ? $this->filterAndSortOnColumns : $this->tableColumns
+                ),  // The sort_by Query parameter could only use Columns defined inside the mode OR the table's original columns
             ],
             'desc' => 'bail|sometimes|required|string|in:true,false,1,0',
         ]);

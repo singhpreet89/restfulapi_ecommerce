@@ -7,11 +7,14 @@ use App\Scopes\BuyerScope;
 
 class Buyer extends User
 {
-    const ENABLE_FILTER_FOR_COLUMNS = [
+    const ENABLE_FILTER_SORT_ON = [
         'id',
         'name',
         'email',
         'verified',
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
     /**
