@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Transaction;
 
+use App\Category;
 use App\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\Pagination\PaginationFacade;
 use App\Http\Resources\Category\CategoryCollection;
+use App\Services\FilterAndSort\FilterAndSortFacade;
 
 class TransactionCategoryController extends Controller
 {
@@ -14,9 +17,13 @@ class TransactionCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Transaction $transaction)
+    public function index(Transaction $transaction, Category $category)
     {
         $categories = $transaction->product->categories;
-        return CategoryCollection::collection($categories);
+
+        $filteredAndSortedCategories = FilterAndSortFacade::apply($categories, $category);
+        $paginatedCategories = PaginationFacade::apply($filteredAndSortedCategories);
+        
+        return CategoryCollection::collection($paginatedCategories);
     }
 }

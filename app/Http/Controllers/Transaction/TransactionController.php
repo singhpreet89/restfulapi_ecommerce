@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Transaction;
 use App\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\Pagination\PaginationFacade;
+use App\Services\FilterAndSort\FilterAndSortFacade;
 use App\Http\Resources\Transaction\TransactionResource;
 use App\Http\Resources\Transaction\TransactionCollection;
 
@@ -15,10 +17,14 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Transaction $transaction)
     {
-        $transactions = Transaction::paginate(20);
-        return TransactionCollection::collection($transactions);
+        $transactions = $transaction->all();
+
+        $filteredAndSortedTransactions = FilterAndSortFacade::apply($transactions, $transaction);
+        $paginatedTransactions = PaginationFacade::apply($filteredAndSortedTransactions);
+        
+        return TransactionCollection::collection($paginatedTransactions);
     }
 
     /**
