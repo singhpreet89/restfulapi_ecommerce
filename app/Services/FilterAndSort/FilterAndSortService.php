@@ -14,10 +14,17 @@ class FilterAndSortService
 {
     private $tableColumns;
     private $filterEnabledColumns;
+    private $supportedQueryParameters;
 
     public function __construct()
     {
-        //
+        $this->supportedQueryParameters =
+            explode(
+                ',',
+                env('SUPPORTED_QUERY_PARAMETERS', [
+                    'sort_by', 'desc', 'per_page', 'unique'
+                ])
+            );
     }
 
     private function getTableColumns(Model $model)
@@ -43,7 +50,7 @@ class FilterAndSortService
          *          * The query parameter must be one of the FILTER_ENABLED_COLUMNS's values  
          *      ? ELSE
          *          * The query parameter must be one of the tables's columns   
-         **/
+         */
         $tableFilterEnabledColumnsCollection = collect();
         if (is_array($this->filterEnabledColumns) && sizeOf($this->filterEnabledColumns) > 0) {
             $tableFilterEnabledColumnsCollection = collect($this->filterEnabledColumns);
@@ -51,7 +58,19 @@ class FilterAndSortService
             $tableFilterEnabledColumnsCollection = collect($this->tableColumns);
         }
 
-        foreach (Request::query() as $query => $value) {
+        /**
+         *  ! Unsetting all the Query Parameters which are not being used to the Filter the collection
+         *      ? Because, $collection = $collection->where($query, $value); used in the 'Filter logic' returns nothing when encountering these Query parameters   
+         */
+        $queryParametersForFiltering = Request::query();
+        foreach ($this->supportedQueryParameters as $value) {
+            unset($queryParametersForFiltering[$value]);
+        }
+
+        /**
+         * ! Filter logic
+         */
+        foreach ($queryParametersForFiltering as $query => $value) {
             /**
              *  ? The Query Parameter must be present and has a value.
              *  *    AND
@@ -90,7 +109,7 @@ class FilterAndSortService
             if (Request::has('desc') && Request::input('desc') === "true" || Request::input('desc') === "1") {
                 $collection = $collection->sortByDesc->{$sortByQueryParameter}; // sortBy is a higher order Collection message  
             } else {
-                $collection = $collection->sortBy->{$sortByQueryParameter}; // sortBy is a higher order Collection message
+                $collection = $collection->sortBy->{$sortByQueryParameter};     // sortBy is a higher order Collection message
             }
         }
 
