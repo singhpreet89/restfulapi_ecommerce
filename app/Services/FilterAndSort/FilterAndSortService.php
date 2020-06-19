@@ -69,6 +69,8 @@ class FilterAndSortService
 
         /**
          * ! Filter logic
+         * TODO: Find a way to return the Validation errors if the Filter parameter does not belongs to the $tableFilterEnabledColumnsCollection created in the previous step
+         *        https://laravel-json-api.readthedocs.io/en/latest/fetching/filtering/  
          */
         foreach ($queryParametersForFiltering as $query => $value) {
             /**

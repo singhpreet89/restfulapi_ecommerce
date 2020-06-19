@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Category;
 
 use App\Category;
+use App\Transaction;
 use App\Http\Controllers\Controller;
+use App\Services\Pagination\PaginationFacade;
+use App\Services\FilterAndSort\FilterAndSortFacade;
 use App\Http\Resources\Transaction\TransactionCollection;
-use Illuminate\Http\Request;
 
 class CategoryTransactionController extends Controller
 {
@@ -14,9 +16,13 @@ class CategoryTransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Category $category)
+    public function index(Category $category, Transaction $transaction)
     {
         $transactions = $category->products()->whereHas('transactions')->with('transactions')->get()->pluck('transactions')->collapse();
-        return TransactionCollection::collection($transactions);
+        
+        $filteredAndSortedTransactions = FilterAndSortFacade::apply($transactions, $transaction);
+        $paginatedTransactions = PaginationFacade::apply($filteredAndSortedTransactions);
+        
+        return TransactionCollection::collection($paginatedTransactions);
     }
 }

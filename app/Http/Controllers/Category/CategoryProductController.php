@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Category;
 
+use App\Product;
 use App\Category;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\Pagination\PaginationFacade;
 use App\Http\Resources\Product\ProductCollection;
+use App\Services\FilterAndSort\FilterAndSortFacade;
 
 class CategoryProductController extends Controller
 {
@@ -14,9 +16,13 @@ class CategoryProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Category $category)
+    public function index(Category $category, Product $product)
     {
         $products = $category->products;
-        return ProductCollection::collection($products);
+
+        $filteredAndSortedProducts = FilterAndSortFacade::apply($products, $product);
+        $paginatedProducts = PaginationFacade::apply($filteredAndSortedProducts);
+
+        return ProductCollection::collection($paginatedProducts);
     }
 }

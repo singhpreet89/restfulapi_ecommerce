@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Category;
 
+use App\Seller;
 use App\Category;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Request;
+use App\Services\Pagination\PaginationFacade;
 use App\Http\Resources\Seller\SellerCollection;
+use App\Services\FilterAndSort\FilterAndSortFacade;
 
 class CategorySellerController extends Controller
 {
@@ -14,17 +17,20 @@ class CategorySellerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, Category $category)
+    public function index(Category $category, Seller $seller)
     {
         $productsWithSeller = $category->products()->with('seller')->get();
         
         $sellers = "";
-        if($request->query('unique') === "true") {
+        if(Request::query('unique') === "true") {
             $sellers = $productsWithSeller->pluck('seller')->unique('id')->values();
         } else {
             $sellers = $productsWithSeller->pluck('seller');
         }
 
-        return SellerCollection::collection($sellers);
+        $filteredAndSortedSellers = FilterAndSortFacade::apply($sellers, $seller);
+        $paginatedSellers = PaginationFacade::apply($filteredAndSortedSellers);
+        
+        return SellerCollection::collection($paginatedSellers);
     }
 }
