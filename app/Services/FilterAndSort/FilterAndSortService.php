@@ -41,7 +41,7 @@ class FilterAndSortService
         return $collection;
     }
 
-    private function sortCollection(Collection $collection)
+    private function validate()
     {
         // ? Performing the Validation here to eliminate the need of creating the Request Validation for each Controller's Index method where SORTING will be used 
         Request::validate([
@@ -51,11 +51,20 @@ class FilterAndSortService
                 'required',
                 Rule::in($this->tableColumns),      // The sort_by Query paramere could only be sorted by the table columns
             ],
+            'desc' => 'bail|sometimes|required|string|in:true,false,1,0',
         ]);
+    }
 
+    private function sortCollection(Collection $collection)
+    {
         if (Request::has('sort_by')) {
             $sortByQueryParameter = Request::input('sort_by');
-            $collection = $collection->sortBy->{$sortByQueryParameter}; // sortBy is a higher order Collection message          
+
+            if (Request::has('desc') && Request::input('desc') === "true" || Request::input('desc') === "1") {
+                $collection = $collection->sortByDesc->{$sortByQueryParameter}; // sortBy is a higher order Collection message  
+            } else {
+                $collection = $collection->sortBy->{$sortByQueryParameter}; // sortBy is a higher order Collection message
+            }
         }
 
         return $collection;
@@ -67,6 +76,8 @@ class FilterAndSortService
         $this->getTableColumns($model);
 
         $filteredCollection = $this->filterCollection($collection);
+
+        $this->validate();
         $filteredAndSortedCollection = $this->sortCollection($filteredCollection);
 
         return $filteredAndSortedCollection;
