@@ -23,8 +23,30 @@ class BuyerCollection extends JsonResource
             'updated_at' => isset($this->updated_at) ? (string) $this->updated_at : null,
             'deleted_at' => isset($this->deleted_at) ? (string) $this->deleted_at : null,
             'link' => [
-                'rel' => 'self',
-                'href' => route('buyers.show', $this->id),
+                [
+                    'rel' => 'self',
+                    'href' => route('buyers.show', $this->id),
+                ],
+                [
+                    'rel' => 'buyer.categories',
+                    'href' => route('buyers.categories.index', $this->id),
+                ],
+                [
+                    'rel' => 'buyer.products',
+                    'href' => route('buyers.products.index', $this->id),
+                ],
+                [
+                    'rel' => 'buyer.sellers(Unique)',
+                    'href' => route('buyers.sellers.index', $this->id) . '?unique=true',
+                ],
+                [
+                    'rel' => 'buyer.sellers',
+                    'href' => route('buyers.sellers.index', $this->id),
+                ],
+                [
+                    'rel' => 'buyer.transactions',
+                    'href' => route('buyers.transactions.index', $this->id),
+                ],
             ],
         ];
     }
