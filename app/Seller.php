@@ -7,7 +7,7 @@ use App\Scopes\SellerScope;
 
 class Seller extends User
 {
-    const ENABLE_FILTER_FOR_COLUMNS = [
+    const ENABLE_FILTER_AND_SORT_ON_COLUMNS = [
         'id',
         'name',
         'email',
