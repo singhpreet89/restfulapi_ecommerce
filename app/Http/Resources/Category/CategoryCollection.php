@@ -27,12 +27,20 @@ class CategoryCollection extends JsonResource
                     'href' => route('categories.show', $this->id),
                 ],
                 [
+                    'rel' => 'category.buyers(Unique)',
+                    'href' => route('categories.buyers.index', $this->id) . '?unique=true',
+                ],
+                [
                     'rel' => 'category.buyers',
                     'href' => route('categories.buyers.index', $this->id),
                 ],
                 [
                     'rel' => 'category.products',
                     'href' => route('categories.products.index', $this->id),
+                ],
+                [
+                    'rel' => 'category.seller(Unique)',
+                    'href' => route('categories.sellers.index', $this->id) . '?unique=true',
                 ],
                 [
                     'rel' => 'category.seller',
