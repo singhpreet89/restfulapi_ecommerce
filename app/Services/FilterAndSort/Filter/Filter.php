@@ -4,12 +4,15 @@ namespace App\Services\FilterAndSort\Filter;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class Filter
 {
     private $filterAndSortOnColumns;
     private $tableColumns;
     private $excludeQueryParamsFromFilter;
+    private $filterEnabledTableColumnCollection;
+    private $queryParametersForFiltering;
 
     public function __construct($filterAndSortOnColumns, $tableColumns)
     {
@@ -25,41 +28,60 @@ class Filter
                     'unique',   // 'unique' is used in the Relevant controllers to fetch the unique results
                     'page'      // 'page' is being used inside the Paginated links
                 ])
-            )
-        ;
+            );
+        $this->filterEnabledTableColumnCollection = collect();
+    }
+
+    /**
+     *  ! Ensuring that the ENABLE_FILTER_AND_SORT_ON_COLUMNS is defined
+     *      ? IF the 'const ENABLE_FILTER_AND_SORT_ON_COLUMNS' is defined inside the MODEL
+     *          * The query parameter must be one of the FILTER_ENABLED_COLUMNS's values  
+     *      ? ELSE
+     *          * The query parameter must be one of the tables's columns   
+     */
+    private function verifyCustomFilterColumns()
+    {
+        if (is_array($this->filterAndSortOnColumns) && sizeOf($this->filterAndSortOnColumns) > 0) {
+            $this->filterEnabledTableColumnCollection = collect($this->filterAndSortOnColumns);
+        } else {
+            $this->filterEnabledTableColumnCollection = collect($this->tableColumns);
+        }
+    }
+
+    /**
+     *  ! Unsetting all the Query Parameters which are not being used to Filter the collection
+     *      ? Because, $collection = $collection->where($query, $value); used in the 'Filter logic' returns nothing when encountering these Query parameters   
+     */
+    private function prepareQueryParamsForFilter()
+    {
+        $this->queryParametersForFiltering = Request::query();
+        foreach ($this->excludeQueryParamsFromFilter as $value) {
+            unset($this->queryParametersForFiltering[$value]);
+        }
+    }
+
+    /**
+     * ! Validating the Query parameters being used inside the filterCollection()
+     * ! Throw the HttpException if the following coditions are not met: 
+     *      ? 1. If 'const ENABLE_FILTER_AND_SORT_ON_COLUMNS' is defined inside the MODEL
+     *          * Then the Query parameter must be one of the FILTER_ENABLED_COLUMNS's values  
+     *      ? 2. Else
+     *          * The query parameter must be one of the tables's columns    
+     */
+    private function validate()
+    {
+        foreach ($this->queryParametersForFiltering as $key => $value) { 
+            $search = $this->filterEnabledTableColumnCollection->search($key);
+            $exist = $search >= 0 && $search != null ? 1 : 0;
+            if($exist === 0) {
+                abort(Response::HTTP_UNPROCESSABLE_ENTITY, "The ${key} field is not allowed."); // Throwing HttpException
+            }
+        }
     }
 
     private function filterCollection(Collection $collection)
     {
-        /**
-         *  ! Ensuring that the ENABLE_FILTER_FOR_COLUMNS is defined
-         *      ? IF the 'const ENABLE_FILTER_FOR_COLUMNS' is defined inside the MODEL
-         *          * The query parameter must be one of the FILTER_ENABLED_COLUMNS's values  
-         *      ? ELSE
-         *          * The query parameter must be one of the tables's columns   
-         */
-        $tableFilterEnabledColumnsCollection = collect();
-        if (is_array($this->filterAndSortOnColumns) && sizeOf($this->filterAndSortOnColumns) > 0) {
-            $tableFilterEnabledColumnsCollection = collect($this->filterAndSortOnColumns);
-        } else {
-            $tableFilterEnabledColumnsCollection = collect($this->tableColumns);
-        }
-
-        /**
-         *  ! Unsetting all the Query Parameters which are not being used to the Filter the collection
-         *      ? Because, $collection = $collection->where($query, $value); used in the 'Filter logic' returns nothing when encountering these Query parameters   
-         */
-        $queryParametersForFiltering = Request::query();
-        foreach ($this->excludeQueryParamsFromFilter as $value) {
-            unset($queryParametersForFiltering[$value]);
-        }
-
-        /**
-         * ! Filter logic
-         * TODO: Find a way to return the Validation errors if the Filter parameter does not belongs to the $tableFilterEnabledColumnsCollection created in the previous step
-         *        https://laravel-json-api.readthedocs.io/en/latest/fetching/filtering/  
-         */
-        foreach ($queryParametersForFiltering as $query => $value) {
+        foreach ($this->queryParametersForFiltering as $query => $value) {
             /**
              *  ? The Query Parameter must be present and has a value.
              *  *    AND
@@ -68,7 +90,7 @@ class Filter
              *          * Since $collection->search() returns 0 for the Query parameter 'id' which is mostly at the 0th index in all the database tables
              *          * And 0 inside the If condition will fail the condition resulting in Non-filtered results  
              */
-            if (isset($query, $value) && ($tableFilterEnabledColumnsCollection->search($query) >= 0 ? true : false)) {
+            if (isset($query, $value) && ($this->filterEnabledTableColumnCollection->search($query) >= 0 ? true : false)) {
                 $collection = $collection->where($query, $value);
             }
         }
@@ -78,6 +100,10 @@ class Filter
 
     public function apply(Collection $collection)
     {
+        $this->verifyCustomFilterColumns();
+        $this->prepareQueryParamsForFilter();
+        $this->validate();
+
         return $this->filterCollection($collection);
     }
 }

@@ -19,7 +19,7 @@ class FilterAndSortService
        // 
     }
 
-    private function getTableColumns(Model $model)
+    private function getColumns(Model $model)
     {
         $tableName = $model->getTable();
         $this->tableColumns = Schema::getColumnListing($tableName);
@@ -37,7 +37,7 @@ class FilterAndSortService
     // Receiving the Collection and Model instance
     public function apply(Collection $collection, Model $model)
     { 
-        $this->getTableColumns($model);
+        $this->getColumns($model);
 
         // FILTERING
         $filter = new Filter($this->filterAndSortOnColumns, $this->tableColumns);

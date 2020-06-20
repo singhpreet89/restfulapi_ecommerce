@@ -108,13 +108,13 @@ class Handler extends ExceptionHandler
 
         if ($exception instanceof HttpException) {
             return response([
-                "message" => "{$exception->getMessage()}",
+                "message" => "Invalid.",
                 "errors" => [
                     'reason' => [
                         "{$exception->getMessage()}"
                     ]
                 ],
-            ], Response::HTTP_FORBIDDEN);
+            ], $exception->getStatusCode());
         }
 
         // TODO: Handle other types of SQL exceptions here by checking other type of errorInfo
