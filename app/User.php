@@ -12,7 +12,6 @@ class User extends Authenticatable
 {
     use Notifiable, SoftDeletes;
 
-    // TODO: VERIFIED_USER & UNVERIFIED_USER could be integers and ADMIN_USER, REGULAT_USER could be boolean
     const VERIFIED_USER = '1';
     const UNVERIFIED_USER = '0';
 
@@ -46,7 +45,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime', 
     ];
 
-    // TODO: We can write the login in the following functions and the constants used in UserFactory directly inside the Factories
     public function isVerified() {
         return $this->verified == User::VERIFIED_USER;
     }
@@ -55,8 +53,9 @@ class User extends Authenticatable
         return $this->admin == User::ADMIN_USER;
     }
 
+    // Cryptographically Secure Pseudo random (20 bytes / 40 string characters)
     public static function generateVerificationCode() {
-        return Str::random(40); // TODO: Check how to make this a Pseudo Random number or Cryptographically secure number
+        return bin2hex(random_bytes(20));
     }
 
     // Mutators
