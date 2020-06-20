@@ -22,9 +22,27 @@ class TransactionCollection extends JsonResource
             'created_at' => isset($this->created_at) ? (string) $this->created_at : null,
             'updated_at' => isset($this->updated_at) ? (string) $this->updated_at : null,
             'deleted_at' => isset($this->deleted_at) ? (string) $this->deleted_at : null,
-            'link' => [
-                'rel' => 'self',
-                'href' => route('transactions.show', $this->id),
+            'links' => [
+                [
+                    'rel' => 'self',
+                    'href' => route('transactions.show', $this->id),
+                ],
+                [
+                    'rel' => 'transaction.buyer',
+                    'href' => route('buyers.show', $this->buyer_id),
+                ],
+                [
+                    'rel' => 'transaction.categories',
+                    'href' => route('transactions.categories.index', $this->id),
+                ],
+                [
+                    'rel' => 'transaction.seller',
+                    'href' => route('transactions.sellers.index', $this->id),
+                ],
+                [
+                    'rel' => 'transaction.product',
+                    'href' => route('products.show', $this->product_id),
+                ],
             ],
         ];
     }

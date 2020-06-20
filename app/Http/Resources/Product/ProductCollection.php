@@ -25,25 +25,25 @@ class ProductCollection extends JsonResource
             'created_at' => isset($this->created_at) ? (string) $this->created_at : null,
             'updated_at' => isset($this->updated_at) ? (string) $this->updated_at : null,
             'deleted_at' => isset($this->deleted_at) ? (string) $this->deleted_at : null,
-            'link' => [
+            'links' => [
                 [
                     'rel' => 'self',
                     'href' => route('products.show', $this->id),
                 ],
                 [
-                    'rel' => 'products.buyers',
+                    'rel' => 'product.buyers',
                     'href' => route('products.buyers.index', $this->id),
                 ],
                 [
-                    'rel' => 'products.categoriess',
+                    'rel' => 'product.categories',
                     'href' => route('products.categories.index', $this->id),
                 ],
                 [
-                    'rel' => 'products.sellers',
+                    'rel' => 'product.seller',
                     'href' => route('sellers.show', $this->seller_id),
                 ],
                 [
-                    'rel' => 'products.transactions',
+                    'rel' => 'product.transactions',
                     'href' => route('products.transactions.index', $this->id),
                 ],
             ],

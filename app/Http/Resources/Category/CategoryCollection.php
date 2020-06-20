@@ -21,25 +21,25 @@ class CategoryCollection extends JsonResource
             'created_at' => isset($this->created_at) ? (string) $this->created_at : null,
             'updated_at' => isset($this->updated_at) ? (string) $this->updated_at : null,
             'deleted_at' => isset($this->deleted_at) ? (string) $this->deleted_at : null,
-            'link' => [
+            'links' => [
                 [
                     'rel' => 'self',
                     'href' => route('categories.show', $this->id),
                 ],
                 [
-                    'rel' => 'categories.buyers',
+                    'rel' => 'category.buyers',
                     'href' => route('categories.buyers.index', $this->id),
                 ],
                 [
-                    'rel' => 'categories.products',
+                    'rel' => 'category.products',
                     'href' => route('categories.products.index', $this->id),
                 ],
                 [
-                    'rel' => 'categories.sellers',
+                    'rel' => 'category.seller',
                     'href' => route('categories.sellers.index', $this->id),
                 ],
                 [
-                    'rel' => 'categories.transactions',
+                    'rel' => 'category.transactions',
                     'href' => route('categories.transactions.index', $this->id),
                 ],
             ],
