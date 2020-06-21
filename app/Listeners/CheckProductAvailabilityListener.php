@@ -30,7 +30,6 @@ class CheckProductAvailabilityListener
     {
         if($event->productObject->quantity === 0 && $event->productObject->isAvailable())  {
             $event->productObject->status = Product::UNAVAILABLE_PRODUCT;
-            Log::info(json_encode($event));
             $event->productObject->save();
         }
     }
