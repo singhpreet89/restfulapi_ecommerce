@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\User;
 
+use App\Rules\CheckVerified;
 use App\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -35,10 +36,19 @@ class UserUpdateRequest extends FormRequest
 
             // 'email' => 'sometimes|required|email|unique:users,email,' . $this->user,
             // OR
-            'email' => ['sometimes', 'required', 'email', Rule::unique('users')->ignore($this->user)],
-
+            'email' => [
+                'sometimes', 
+                'required', 
+                'email', 
+                Rule::unique('users')->ignore($this->user)
+            ],
             'password' => 'sometimes|required|min:6|confirmed',
-            'admin' => 'sometimes|required|in:' . User::ADMIN_USER . ',' . User::REGULAR_USER,
+            'admin' => [
+                'sometimes',
+                'required',
+                'in:' . User::ADMIN_USER . ',' . User::REGULAR_USER,
+                new CheckVerified($this->user), // Rule to check if the User is allowed to update the 'admin' field in the User table
+            ],
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Exceptions\CustomException;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -26,7 +27,7 @@ class UserController extends Controller
         $users = $user->all();
         $filteredAndSortedUsers = FilterAndSortFacade::apply($users, $user);
         $paginatedUsers = PaginationFacade::apply($filteredAndSortedUsers);
-        
+
         return UserCollection::collection($paginatedUsers);
     }
 
@@ -84,16 +85,6 @@ class UserController extends Controller
         }
 
         if ($request->has('admin')) {
-            if (!$user->isVerified()) {
-                return response([
-                    'message' => 'Not verified.',
-                    'errors' => [
-                        'admin' => [
-                            'Only verified users can modify the admin field.'
-                        ]
-                    ]
-                ], Response::HTTP_FORBIDDEN);
-            }
             $user->admin = $request->admin;
         }
 
