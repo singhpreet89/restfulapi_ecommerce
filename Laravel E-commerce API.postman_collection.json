@@ -1,0 +1,2787 @@
+{
+	"info": {
+		"_postman_id": "e3edc611-e768-4e9e-8974-d4efd57eaf1d",
+		"name": "Laravel E-commerce API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "GET - All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Users (Custom Filter)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users?verified=1&admin=true",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "verified",
+									"value": "1"
+								},
+								{
+									"key": "admin",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Users (Custom Sort)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users?sort_by=name",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "sort_by",
+									"value": "name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Users (Custom Sort) Desc",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users?sort_by=name&desc=true",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "sort_by",
+									"value": "name"
+								},
+								{
+									"key": "desc",
+									"value": "true"
+								}
+							]
+						},
+						"description": "'desc' could only take: true, false,1 and 0"
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Users (Custom Pagination)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users?per_page=25",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "per_page",
+									"value": "25"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Users (Pagination Disabled)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users?per_page=disabled",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "per_page",
+									"value": "disabled"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Users (Custom Filter & Pagination)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users?verified=0&admin=true&per_page=10",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "verified",
+									"value": "0"
+								},
+								{
+									"key": "admin",
+									"value": "true"
+								},
+								{
+									"key": "per_page",
+									"value": "10"
+								}
+							]
+						},
+						"description": "With Query Parameter 'per_page=10'"
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Users (Custom Sort & Pagination)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users?sort_by=name&per_page=10",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "sort_by",
+									"value": "name"
+								},
+								{
+									"key": "per_page",
+									"value": "10"
+								}
+							]
+						},
+						"description": "With Query Parameter 'per_page=10'"
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Buyers (Custom Filter, Sort &  Pagination) Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users?verified=1&admin=false&sort_by=name&per_page=10",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "verified",
+									"value": "1"
+								},
+								{
+									"key": "admin",
+									"value": "false"
+								},
+								{
+									"key": "sort_by",
+									"value": "name"
+								},
+								{
+									"key": "per_page",
+									"value": "10"
+								}
+							]
+						},
+						"description": "With Query Parameter 'per_page=10'"
+					},
+					"response": []
+				},
+				{
+					"name": "GET - One User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST - Create a User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Harpreet Singh\",\r\n    \"email\" : \"singh.harpreet89@hotmail.com\",\r\n    \"password\" : \"@20JaN89@\",\r\n    \"password_confirmation\" : \"@20JaN89@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT - Update a User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Harpreet Singh\",\r\n    \"email\" : \"singh.harpreet89@hotmail.com\"\r\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/1001",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"1001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete - One User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/1001",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"1001"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Buyers",
+			"item": [
+				{
+					"name": "GET - All Buyers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/buyers",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"buyers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Buyers (Custom Filter)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/buyers?verified=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"buyers"
+							],
+							"query": [
+								{
+									"key": "verified",
+									"value": "1"
+								}
+							]
+						},
+						"description": "With Query Parameter 'per_page=10'"
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Buyers (Custom Sort)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/buyers?sort_by=email",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"buyers"
+							],
+							"query": [
+								{
+									"key": "sort_by",
+									"value": "email"
+								}
+							]
+						},
+						"description": "With Query Parameter 'per_page=10'"
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Buyers (Custom Sort) Desc",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/buyers?sort_by=created_at&desc=0",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"buyers"
+							],
+							"query": [
+								{
+									"key": "sort_by",
+									"value": "created_at"
+								},
+								{
+									"key": "desc",
+									"value": "0"
+								}
+							]
+						},
+						"description": "With Query Parameter 'per_page=10'"
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Buyers (Custom Pagination)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/buyers?per_page=10",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"buyers"
+							],
+							"query": [
+								{
+									"key": "per_page",
+									"value": "10"
+								}
+							]
+						},
+						"description": "With Query Parameter 'per_page=10'"
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Buyers (Pagination Disabled) ",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/buyers?per_page=disabled",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"buyers"
+							],
+							"query": [
+								{
+									"key": "per_page",
+									"value": "disabled"
+								}
+							]
+						},
+						"description": "With Query Parameter 'per_page=disabled'"
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Buyers (Custom Filter & Pagination)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/buyers?verified=0&per_page=10",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"buyers"
+							],
+							"query": [
+								{
+									"key": "verified",
+									"value": "0"
+								},
+								{
+									"key": "per_page",
+									"value": "10"
+								}
+							]
+						},
+						"description": "With Query Parameter 'per_page=10'"
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Buyers (Custom Sort & Pagination)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/buyers?sort_by=name&per_page=10",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"buyers"
+							],
+							"query": [
+								{
+									"key": "sort_by",
+									"value": "name"
+								},
+								{
+									"key": "per_page",
+									"value": "10"
+								}
+							]
+						},
+						"description": "With Query Parameter 'per_page=10'"
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Buyers (Custom Filter, Sort &  Pagination)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/buyers?verified=0&sort_by=name&per_page=10",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"buyers"
+							],
+							"query": [
+								{
+									"key": "verified",
+									"value": "0"
+								},
+								{
+									"key": "sort_by",
+									"value": "name"
+								},
+								{
+									"key": "per_page",
+									"value": "10"
+								}
+							]
+						},
+						"description": "With Query Parameter 'per_page=10'"
+					},
+					"response": []
+				},
+				{
+					"name": "GET - One Buyer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/buyers/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"buyers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Transactions of a Buyer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/buyers/5/transactions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"buyers",
+								"5",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Products the Buyer has purchased in all Transactions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/buyers/5/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"buyers",
+								"5",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All the unique(Sellers) whose products are purchased by the Buyer through Transactions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/buyers/5/sellers?unique=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"buyers",
+								"5",
+								"sellers"
+							],
+							"query": [
+								{
+									"key": "unique",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All the Non - unique(Sellers) whose products are purchased by the Buyer through Transactions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/buyers/5/sellers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"buyers",
+								"5",
+								"sellers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All the Categories of Products purchased by a Buyer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/buyers/1/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"buyers",
+								"1",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All the Categories of Products purchased by a Buyer (Custom Filter)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/buyers/1/categories?verified=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"buyers",
+								"1",
+								"categories"
+							],
+							"query": [
+								{
+									"key": "verified",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Sellers",
+			"item": [
+				{
+					"name": "GET - All Sellers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/sellers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"sellers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - One Seller",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/sellers/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"sellers",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All the Transactions for a Seller",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/sellers/3/transactions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"sellers",
+								"3",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Unique(Categories) of a Product belonging to a Seller",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/sellers/2/categories?unique=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"sellers",
+								"2",
+								"categories"
+							],
+							"query": [
+								{
+									"key": "unique",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Non - Unique(Categories) of a Product belonging to a Seller",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/sellers/2/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"sellers",
+								"2",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All the Unique(Buyers) whoc purchased a Sellers's product ",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/sellers/3/buyers?unique=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"sellers",
+								"3",
+								"buyers"
+							],
+							"query": [
+								{
+									"key": "unique",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All the Non - Unique(Buyers) whoc purchased a Sellers's product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/sellers/3/buyers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"sellers",
+								"3",
+								"buyers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All products of a Seller",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/sellers/2/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"sellers",
+								"2",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST - Seller adding a new Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Test Product 1",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "This is a very good product.",
+									"type": "text"
+								},
+								{
+									"key": "quantity",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/D:/Wallpapers™/Other™/basketball1.jpg"
+								}
+							],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/sellers/3/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"sellers",
+								"3",
+								"products"
+							]
+						},
+						"description": "Give: The Seller_id. we selct has be a seller already."
+					},
+					"response": []
+				},
+				{
+					"name": "PUT - Seller Updating a Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Random name",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Random description",
+									"type": "text"
+								},
+								{
+									"key": "quantity",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/D:/Wallpapers™/Other™/basketball_vector_hd-wide.jpg"
+								},
+								{
+									"key": "_method",
+									"value": "PUT",
+									"type": "text"
+								}
+							],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/sellers/3/products/1001",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"sellers",
+								"3",
+								"products",
+								"1001"
+							]
+						},
+						"description": "In order to send a PUT request with an Image. We need to use Method spoofing and send the _method=PUT. Because the raw and x-www-form-urlencodestring don't support file types."
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE - Seller Deleting a Product ",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/sellers/3/products/1001",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"sellers",
+								"3",
+								"products",
+								"1001"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c06ee664-4bed-4b46-aef1-f482b68cb9e4",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6d8105ff-bc42-4d29-82dc-d978bead7079",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "ERRORS",
+			"item": [
+				{
+					"name": "Method not supported",
+					"item": [
+						{
+							"name": "Buyer - Method not supported",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/buyers/1000",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"buyers",
+										"1000"
+									]
+								},
+								"description": "POST, PUT, PATCH and DELETE methods are not supported."
+							},
+							"response": []
+						},
+						{
+							"name": "Seller - Method not supported",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/sellers/1000",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"sellers",
+										"1000"
+									]
+								},
+								"description": "POST, PUT, PATCH and DELETE methods are not supported."
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Model not found",
+					"item": [
+						{
+							"name": "User - Model not found",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/users/1200",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"users",
+										"1200"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buyer - Model not found",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/buyers/1200",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"buyers",
+										"1200"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Seller - Model not found",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/sellers/1200",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"sellers",
+										"1200"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Category - Model not found",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/categories/500",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"categories",
+										"500"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product - Model not found",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/products/1500",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"products",
+										"1500"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Transaction - Model not found",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/transactions/5000",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"transactions",
+										"5000"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Transaction Category - Model not found",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/transactions/5000/categories",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"transactions",
+										"5000",
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Transaction Seller - Model not found",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/transactions/5000/sellers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"transactions",
+										"5000",
+										"sellers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buyer Transaction - Model not found",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/buyers/5000/transactions",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"buyers",
+										"5000",
+										"transactions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buyer Product - Model not found",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/buyers/5000/products",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"buyers",
+										"5000",
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buyer Seller - Model not found",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/buyers/5000/sellers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"buyers",
+										"5000",
+										"sellers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buyer Categories - Model not found",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/buyers/5000/categories?unique=true",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"buyers",
+										"5000",
+										"categories"
+									],
+									"query": [
+										{
+											"key": "unique",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET - Category Product - Model not found",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/categories/5000/products",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"categories",
+										"5000",
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET - Category Transaction - Model not found",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/categories/5000/transactions",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"categories",
+										"5000",
+										"transactions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET - Category Buyer - Model not found",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/categories/5000/buyers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"categories",
+										"5000",
+										"buyers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET - Seller Transaction - Model not found",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/sellers/5000/transactions",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"sellers",
+										"5000",
+										"transactions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET - Seller Category - Model not found",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/sellers/5000/categories",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"sellers",
+										"5000",
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET - Seller Buyer - Model not found",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/sellers/5000/buyers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"sellers",
+										"5000",
+										"buyers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET - Seller Product - Model not found",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/sellers/5000/products",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"sellers",
+										"5000",
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET - Product Transaction - Model not found",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/products/5000/transactions",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"5000",
+										"transactions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET - Product Buyer - Model not found",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/products/5000/buyers",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"5000",
+										"buyers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET - Product Category - Model not found",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/products/5000/categories",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"5000",
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT - Product Category - Model not found (Product does not Exist)",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/products/5000/categories/25",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"5000",
+										"categories",
+										"25"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT - Product Category - Model not found (Category does not exist))",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/products/3/categories/2500",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"3",
+										"categories",
+										"2500"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Invalid Url",
+					"item": [
+						{
+							"name": "Invalid Url",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/users/somethingRandom",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"users",
+										"somethingRandom"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "User update (error)",
+					"item": [
+						{
+							"name": "PUT - Update (Error) - Not verified",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\" : \"Harpreet Singh\",\r\n    \"email\" : \"singh.harpreet89@hotmail.com\",\r\n    \"admin\" : \"true\"\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/users/1001",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"users",
+										"1001"
+									]
+								},
+								"description": "Since the Newly created users are not verified by default, they can't update the admin field."
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Query Exception",
+					"item": [
+						{
+							"name": "DELETE - User having Products or Transactions",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/users/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"users",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Product Store (error)",
+					"item": [],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Product Update (error)",
+					"item": [
+						{
+							"name": "PUT - Seller Updating a Product Error (i.e. Product is not being updated by the original Seller)",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Something special",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Some vague description\n",
+											"type": "text"
+										},
+										{
+											"key": "quantity",
+											"value": "5",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "unavailable",
+											"type": "text"
+										}
+									],
+									"options": {
+										"urlencoded": {}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/sellers/2/products/1006",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"sellers",
+										"2",
+										"products",
+										"1006"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT - Seller Updating a Product Error (i.e. status = available with No Category))",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Something special",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Some vague description\n",
+											"type": "text"
+										},
+										{
+											"key": "quantity",
+											"value": "5",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "available",
+											"type": "text"
+										}
+									],
+									"options": {
+										"urlencoded": {}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/sellers/3/products/1006",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"sellers",
+										"3",
+										"products",
+										"1006"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Product Deletion (Error)",
+					"item": [
+						{
+							"name": "DELETE - Seller Deleting a Product Error (i.e. Product is not being deleted by it's original seller))",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/sellers/2/products/1001",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"sellers",
+										"2",
+										"products",
+										"1001"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Product Category Deletion (Error)",
+					"item": [
+						{
+							"name": "DELETE - Deleting a Product's Category Error",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/products/3/categories/40",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"3",
+										"categories",
+										"40"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Buyer - Filter, Sort, Pagination (errors)",
+					"item": [
+						{
+							"name": "GET - All Buyers (Custom Filter)  with verified=2 which does not exist",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/buyers?verified=2",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"buyers"
+									],
+									"query": [
+										{
+											"key": "verified",
+											"value": "2"
+										}
+									]
+								},
+								"description": "With Query Parameter 'per_page=10'"
+							},
+							"response": []
+						},
+						{
+							"name": "GET - All Buyers (Custom Filter)  with admin=true (admin field is not visible for Buyer)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/buyers?verified=1&admin=true&sort_by=name&desc=1&per_page=10",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"buyers"
+									],
+									"query": [
+										{
+											"key": "verified",
+											"value": "1"
+										},
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "sort_by",
+											"value": "name"
+										},
+										{
+											"key": "desc",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										}
+									]
+								},
+								"description": "With Unsupported Query Parameter 'admin'"
+							},
+							"response": []
+						},
+						{
+							"name": "GET - All Buyers (Custom Sort) with no value",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/buyers?sort_by=",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"buyers"
+									],
+									"query": [
+										{
+											"key": "sort_by",
+											"value": ""
+										}
+									]
+								},
+								"description": "With Query Parameter 'per_page=10'"
+							},
+							"response": []
+						},
+						{
+							"name": "GET - All Buyers (Custom Sort) with Invalid value",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/buyers?sort_by=someRandomName",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"buyers"
+									],
+									"query": [
+										{
+											"key": "sort_by",
+											"value": "someRandomName"
+										}
+									]
+								},
+								"description": "With Query Parameter 'per_page=10'"
+							},
+							"response": []
+						},
+						{
+							"name": "GET - All Buyers (Custom Pagination) with Unsupported Index",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/buyers?per_page=1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"buyers"
+									],
+									"query": [
+										{
+											"key": "per_page",
+											"value": "1"
+										}
+									]
+								},
+								"description": "With Query Parameter 'per_page=10'"
+							},
+							"response": []
+						},
+						{
+							"name": "GET - All Buyers (Custom Pagination) with Unsupported Index - 2",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/buyers?per_page=52",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"buyers"
+									],
+									"query": [
+										{
+											"key": "per_page",
+											"value": "52"
+										}
+									]
+								},
+								"description": "With Query Parameter 'per_page=10'"
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "GET - All Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - One Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/categories/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST - Create a Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Phones\",\r\n    \"description\" : \"All type of phones comes under this category\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT - Update a Category",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Phones\",\r\n    \"description\" : \"All type of phones comes under this category\"\r\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/categories/31",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"categories",
+								"31"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE - One Category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/categories/31",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"categories",
+								"31"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Products belong to a Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/categories/1/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"categories",
+								"1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Unique(Sellers) belong to the Products of a Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/categories/1/sellers?unique=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"categories",
+								"1",
+								"sellers"
+							],
+							"query": [
+								{
+									"key": "unique",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Non - Unique(Sellers) belong to the Products of a Category Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/categories/1/sellers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"categories",
+								"1",
+								"sellers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Transactions belong to a  Category of Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/categories/1/transactions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"categories",
+								"1",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Unique(Buyers) which performed Transactions on Products belong to a Category ",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/categories/1/buyers?unique=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"categories",
+								"1",
+								"buyers"
+							],
+							"query": [
+								{
+									"key": "unique",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Non - Unique(Buyers) which performed Transactions on Products belong to a Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/categories/1/buyers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"categories",
+								"1",
+								"buyers"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "GET - All Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Products (Custom Filter)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/products?created_at=2020-06-14 05:39:56",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "created_at",
+									"value": "2020-06-14 05:39:56"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - One Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/products/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Transactions belonging to a Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/products/3/transactions",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products",
+								"3",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Buyers of a Product through Transactions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/products/3/buyers",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products",
+								"3",
+								"buyers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Categories for a Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/products/3/categories",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products",
+								"3",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT - Attaching a Category to a Product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/products/3/categories/25",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products",
+								"3",
+								"categories",
+								"25"
+							]
+						},
+						"description": "Using PUT method to actually add a New Category with the Product."
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE - Remove a Category of a Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/products/3/categories/25",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products",
+								"3",
+								"categories",
+								"25"
+							]
+						},
+						"description": "Using PUT method to actually add a New Category with the Product."
+					},
+					"response": []
+				},
+				{
+					"name": "POST - Product's Transaction through the Buyer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"quantity\" : 1\r\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/products/167/buyers/1/transactions",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products",
+								"167",
+								"buyers",
+								"1",
+								"transactions"
+							]
+						},
+						"description": "Step- 1: Find a Verified Seller. Use his id to find the products. (Make sure product has 'quantity' >= 1)\r\n    GET: http://localhost:8000/api/sellers\r\nStep - 2: Use one of the Product id, that will be used for Transaction.\r\n    GET: http://localhost:8000/api/sellers/6/products\r\nStep 3: Find a Verified Buyer (Make sure not to choose the Buyer and Seller with same id).\r\n    GET: http://localhost:8000/api/buyers\r\nStep 4: The Url: \r\n    POST: http://localhost:8000/api/products/276/buyers/11/transactions"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Transactions",
+			"item": [
+				{
+					"name": "GET - All Transactions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/transactions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - One Transaction",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/transactions/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"transactions",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - All Categories related to a Product's Transaction",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/transactions/1/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"transactions",
+								"1",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Sellers related to a Product's Transaction",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/transactions/1/sellers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"transactions",
+								"1",
+								"sellers"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "a1d332c4-528a-42ee-afd9-7e4426382546",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "737e68d7-65e0-49d8-9f5c-4a8bedb9f0f3",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "d6d877dc-8c17-4c5a-be5b-5960ede71746",
+			"key": "url",
+			"value": "http://localhost:8000/api",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
