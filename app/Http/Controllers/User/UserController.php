@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Exceptions\CustomException;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -69,7 +68,6 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, User $user)
     {
-        // TODO: Move these functions to the Service class
         if ($request->has('name')) {
             $user->name = $request->name;
         }

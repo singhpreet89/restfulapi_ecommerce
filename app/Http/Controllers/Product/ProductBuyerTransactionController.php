@@ -24,7 +24,6 @@ class ProductBuyerTransactionController extends Controller
      */
     public function store(ProductBuyerTransactionRequest $request, Product $product, User $buyer)
     {
-        // TODO: Use HttpException
         // Make sure than the Seller is different from Buyer
         if ($buyer->id == $product->seller_id) {
             return response([

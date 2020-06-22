@@ -13,7 +13,6 @@ class Product extends Model
 {
     use SoftDeletes;
 
-    // TODO: VERIFIED_USER & UNVERIFIED_USER logic can be handled inside the ProductFactory
     const AVAILABLE_PRODUCT = 'available';
     const UNAVAILABLE_PRODUCT = 'unavailable';
 
@@ -30,7 +29,6 @@ class Product extends Model
         'updated' => CheckProductAvailabilityEvent::class,
     ];
 
-    // TODO: isAvailable logic can be handled inside the Factory
     public function isAvailable() {
         // ! This returns a true or false
         return $this->status == Product::AVAILABLE_PRODUCT;

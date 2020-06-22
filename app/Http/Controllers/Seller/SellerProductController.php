@@ -61,7 +61,6 @@ class SellerProductController extends Controller
     public function update(SellerUpdateRequest $request, Seller $seller, Product $product)
     {
         if ($seller->id !== $product->seller_id) {
-            // TODO: Use HttpException here
             return response([
                 "message" => "Forbidden.",
                 "errors" => [
@@ -80,7 +79,6 @@ class SellerProductController extends Controller
             $product->status = $request->status;
 
             if ($product->isAvailable() && $product->categories()->count() == 0) {
-                // TODO: Use HttpException here
                 return response([
                     'message' => 'Update conflict.',
                     'errors' => [
@@ -92,9 +90,9 @@ class SellerProductController extends Controller
             }
         }
 
-        if($request->has('image')) {
+        if ($request->has('image')) {
             Storage::delete($product->image);
-            $product->image = $request->image->store(''); 
+            $product->image = $request->image->store('');
         }
 
         $product->save();
@@ -110,7 +108,6 @@ class SellerProductController extends Controller
     public function destroy(Seller $seller, Product $product)
     {
         if ($seller->id !== $product->seller_id) {
-            // TODO: Use HttpException here
             return response([
                 "message" => "Forbidden.",
                 "errors" => [
@@ -122,7 +119,9 @@ class SellerProductController extends Controller
         }
 
         $product->delete();
-        Storage::delete($product->image);   // TODO: This deleted the image even if the product is Soft-deleted. MAKE SURE NOT TO REMOVE THE IMAGE when the resource is deleted
+
+        // Make sure not to remove the image when the respurce is deleted, since this is a soft-delete
+        // Storage::delete($product->image);
 
         return new ProductResource($product);
     }

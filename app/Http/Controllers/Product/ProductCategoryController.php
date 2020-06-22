@@ -54,7 +54,6 @@ class ProductCategoryController extends Controller
      */
     public function destroy(Product $product, Category $category)
     {
-        // TODO: Use HttpException here
         if (!$product->categories()->find($category->id)) {
             return response([
                 'message' => 'Not found.',
