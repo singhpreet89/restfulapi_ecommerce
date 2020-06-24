@@ -9,7 +9,7 @@ use App\Transaction;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class BuyerTest extends TestCase
+class BuyerControllerTest extends TestCase
 {
     use RefreshDatabase;
 
