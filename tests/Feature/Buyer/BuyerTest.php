@@ -7,7 +7,6 @@ use App\Product;
 use Tests\TestCase;
 use App\Transaction;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class BuyerTest extends TestCase
