@@ -30,6 +30,7 @@ class UserTest extends TestCase
 
         $response = $this->getJson(route('users.index'));
         // Log::info($response->getContent());
+        // $response->dump();
 
         $response->assertStatus(200);
         $response->assertJsonCount($numberOfUsers, $key = "data");
