@@ -100,6 +100,10 @@ class CategoryControllerTest extends TestCase
 
         $response = $this->postJson(route('categories.store'), $payload);
         
+        $this->assertDatabaseHas('categories', [
+            'name' => $payload["name"],
+            'description' => $payload["description"],
+        ]);
         $response->assertCreated();
         $response->assertJson([
             "data" => [
