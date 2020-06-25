@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserControllerTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithFaker;
 
     public function setUp(): void
     {
@@ -78,8 +78,8 @@ class UserControllerTest extends TestCase
     public function testStore()
     {
         $payload = [
-            "name" => "Jack Daniels",
-            "email" => "something@example.com",
+            "name" => $this->faker->name,
+            "email" =>$this->faker->safeEmail,
             "password" => "random",
             "password_confirmation" => "random"
         ];
