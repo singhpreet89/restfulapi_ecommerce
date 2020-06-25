@@ -43,7 +43,7 @@ php artisan serve
 php artisan migrate
 php artisan db:seed 
 ```
-- ### NOTE: The directory **public/img** contains a few **image** files that are the part of fakew data added by the migrations.
+- ### NOTE: The directory **public/img** contains a few **image** files that are the part of fake data added by the migrations.
 5. Use **Postman** to Import the **"Laravel E-commerce API.postman_collection.json"** file provided in the root directory to test the different API routes.
 
 ## LARAVEL / PHP / Other features used
