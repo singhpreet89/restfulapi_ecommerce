@@ -75,7 +75,7 @@ class UserControllerTest extends TestCase
      *
      * @return void
      */
-    public function testUserStore()
+    public function testStore()
     {
         $payload = [
             "name" => "Jack Daniels",
@@ -87,12 +87,16 @@ class UserControllerTest extends TestCase
         $this->withoutExceptionHandling();
         $response = $this->postJson(route('users.store'), $payload);
 
+        $this->assertDatabaseHas('users', [
+            'name' => $payload["name"],
+            'email' => $payload["email"],
+        ]);
         $response->assertCreated();
         $response->assertJson([
             "data" => [
                 "id" => 1,
-                "name" => "Jack Daniels",
-                "email" => "something@example.com",
+                "name" => $payload["name"],
+                "email" => $payload["email"],
                 "verified" => 0,
                 "admin" => false,
                 "created_at" => !null,
