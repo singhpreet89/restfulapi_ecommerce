@@ -282,7 +282,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\" : \"Harpreet Singh\",\r\n    \"email\" : \"singh.harpreet89@hotmail.com\",\r\n    \"password\" : \"@20JaN89@\",\r\n    \"password_confirmation\" : \"@20JaN89@\"\r\n}",
+							"raw": "{\r\n    \"name\" : \"Harpreet Singh\",\r\n    \"email\" : \"singh.harpreet89@hotmail.com\",\r\n    \"password\" : \"something\",\r\n    \"password_confirmation\" : \"something\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
