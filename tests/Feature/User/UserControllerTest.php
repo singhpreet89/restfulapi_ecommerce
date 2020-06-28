@@ -45,7 +45,7 @@ class UserControllerTest extends TestCase
                     "created_at",
                     "updated_at",
                     "deleted_at",
-                    "link" => [
+                    "links" => [
                         "*" => [
                             "rel",
                             "href",
