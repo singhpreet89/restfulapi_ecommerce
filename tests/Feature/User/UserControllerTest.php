@@ -84,7 +84,7 @@ class UserControllerTest extends TestCase
             "password_confirmation" => "random"
         ];
 
-        $this->withoutExceptionHandling();
+        // $this->withoutExceptionHandling();
         $response = $this->postJson(route('users.store'), $payload);
 
         $this->assertDatabaseHas('users', [
