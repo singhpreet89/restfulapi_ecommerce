@@ -147,7 +147,7 @@ class Handler extends ExceptionHandler
         /**
          * ! Overriding the default Implementation of ValidationException rom \Vendor\Laravel\framework\src\illuminate\Foundation\Exception\Handler.php
          * ? To make sure that the JSON responses could be returned when VALIDATION FAILS for query_parameters in the GET requests.
-         * ? Because, GET requests usually do not send the Accept: application/json HEADER along with the request which if bein checked by Default to return the JSON Response
+         * ? Because, GET requests usually do not send the Accept: application/json HEADER along with the request which if being checked by Default to return the JSON Response
          */
         if ($exception instanceof ValidationException) {
             return $this->convertValidationExceptionToResponse($exception, $request);
